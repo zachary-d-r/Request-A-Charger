@@ -45,6 +45,3 @@ class student:
             if email != '':  toWrite += f'{email}\n'
 
             f.write(f"{toWrite}")
-
-
-#Test Line
