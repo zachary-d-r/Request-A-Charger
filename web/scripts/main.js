@@ -1,8 +1,8 @@
 
-document.getElementById("IDButton").addEventListener("click", ()=>{eel.getStudentID()}, false)
+document.getElementById("emailButton").addEventListener("click", ()=>{eel.getStudentEmail()}, false)
 
 // Get the student ID from the textbox
-eel.expose(getStudentIDJS)
-function getStudentIDJS() {
-    return document.getElementById("studentIDTextBox").value
+eel.expose(getStudentEmailJS)
+function getStudentEmailJS() {
+    return document.getElementById("studentEmailTextBox").value
 }
