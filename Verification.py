@@ -5,7 +5,7 @@ import random
 class verification:
     
     codeNums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'F', 'L', 'Y', 'E', 'P', 'O', 'U', 'W', 'R', 'G', 'S', 'V', 'Z']  # Characters that can be in a verification code
-    verification = ''  # The code
+    verificationCode = ''  # The code
     toAddress = ''  # Who we are sending the email to
     fromAddress = ''  # Who is sending the email
 
@@ -16,11 +16,11 @@ class verification:
 
     # Generate a random verification code
     def getVerificationCode(self):
-        self.verification = ''  # Reset the verification code
+        self.verificationCode = ''  # Reset the verification code
 
         # Add a random character from the list of characters above
         for i in range(9):
-            self.verification += self.codeNums[random.randint(0, len(self.codeNums)-1)]
+            self.verificationCode += self.codeNums[random.randint(0, len(self.codeNums)-1)]
 
     # Email the verification code to the client
     def sendVerificationCode(self):
