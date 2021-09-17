@@ -14,8 +14,9 @@ def printReturn(n):
 # Function to get student id when the submit button is clicked
 @eel.expose
 def getStudentEmail():
+    
     eel.getStudentEmailJS()()  # The () after the function gets the return values
-    student.email = eel.getStudentEmailJS()()
+    student.setEmail(eel.getStudentEmailJS()())
 
     print(f'{student.email}')
 

@@ -7,5 +7,5 @@ class student:
     email = ''
     name = ''
 
-    def __init__(self):
-        print("Student object created")
+    def setEmail(self, inputEmail):
+        self.email = f'{inputEmail}@emeryweiner.org'
