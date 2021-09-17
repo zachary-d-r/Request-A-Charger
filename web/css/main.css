@@ -1,0 +1,97 @@
+.login-div {
+  width:430px;
+  height: 400px;
+  padding: 60px 35px 35px 35px;
+  border-radius: 40px;
+  background: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1,
+              -13px -13px 20px #ffffff;
+
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+
+}
+
+.title {
+  text-align: center;
+  font-size: 28px;
+  padding-top: 24px;
+  letter-spacing: 0.5px;
+  font-family: 'Noto Sans', sans-serif;
+  color: gray;
+}
+.subtitle {
+  text-align: center;
+  font-size: 15px;
+  color: gray;
+  padding-top: 7px;
+  letter-spacing: 3px;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.fields {
+  padding: 75px 5px 5px 5px;
+  width: 100%;
+}
+.fields input {
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 16px;
+  font-family: 'Noto Sans', sans-serif;
+  color: #555;
+  padding: 20px 10px 20px 5px;
+}
+.email {
+  margin-bottom: 30px;
+  border-radius: 25px;
+  float: left;
+  box-shadow: inset 8px 8px 8px #cbced1,
+              inset -8px -8px 8px #ffffff;;
+}
+.domain {
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 16px;
+  font-family: 'Noto Sans', sans-serif;
+  color: gray;
+  padding: 20px 10px 20px 5px;
+
+  margin-bottom: 30px;
+  border-radius: 25px;
+  float: right;
+  box-shadow: inset 8px 8px 8px #cbced1,
+              inset -8px -8px 8px #ffffff;;
+}
+         
+.signin-button {
+  outline: none;
+  border:none;
+  cursor: pointer;
+  width: 100%;
+  height: 60px;
+  border-radius: 30px;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'Noto Sans', sans-serif;
+  color:#fff;
+  text-align: center;
+  background: #24cfaa;
+  box-shadow: 3px 3px 8px #b1b1b1,
+              -3px -3px 8px #ffffff;
+  transition: 0.5s;
+
+  position: relative;
+  top: 20px;
+}
+.signin-button:hover {
+  background:#2fdbb6;
+}
+.signin-button:active {
+  background:#1da88a;
+}
