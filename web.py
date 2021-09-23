@@ -3,7 +3,7 @@ import eel
 import Verification
 
 student = Student.student()  # Create student object to load file
-verification = Verification.verification('esfgn', 'sadfn')
+verification = Verification.verification('', 'requset-a-charger@computer4u.com')
 
 eel.init('web')  # Initialize the app
 
@@ -19,10 +19,13 @@ def getStudentEmail():
     student.setEmail(eel.getStudentEmailJS()())
 
     print(f'{student.email}')
+    verification.toAddress = student.email
 
     # Send email
     verification.getVerificationCode()
     print(verification.verificationCode)
+    verification.sendVerificationCode()
+    print("Code sent!")
 
 
 eel.start('index.html')  # Start the app
