@@ -19,6 +19,9 @@ def main():
     userDataFrame = add_user_data(userDataFrame, 'epresent@emeryweiner.org','ad334f', 1, 'USB-C', 1)
     print(userDataFrame.head())
 
+    userDataFrame = add_user_data(userDataFrame, 'epresent@emeryweiner.org','agfdgf', 2, 'USB-e', 4)
+    print(userDataFrame)
+
     # Pickle the user data to its file
     #pandas_pickle(userDataFile, userDataFrame, 'w')
 
@@ -31,7 +34,7 @@ def setup_user_data(filename):
     if userDataFrame.empty:
 
         # Create a list with the column names
-        column_names = ['Email', 'Verification Code In', 'Charger Number', 'Charger Type', 'Locker Number', 'Timestamp In', 'Verification Code Out', 'Timestamp Out']
+        column_names = ['Verification Code In', 'Charger Number', 'Charger Type', 'Locker Number', 'Timestamp In', 'Verification Code Out', 'Timestamp Out']
 
         # Set the columns labels of the dataframe to the column names list
         #userDataFrame.columns = column_names
@@ -40,26 +43,40 @@ def setup_user_data(filename):
         userDataFrame = pd.DataFrame(columns=column_names, dtype='object')
 
         # Create a variable with the index name
-        indexName = 'Student Number'
+        indexName = 'Email'
         
         # Set the index label of the dataframe to the index name variable
         userDataFrame.rename_axis(indexName)
 
     # Return the user data frame
     return userDataFrame
-    
+
 
 # Define the add_user_data function to add user data to the user data dataframe
 def add_user_data(userDataFrame, email, verifyCodeIn, chargerNum, chargerType, lockerNum):
     # Get the current timestamp
     timestamp = pd.Timestamp.now()
 
-    # Update the user dataframe with the new data
-    userDataFrame.update({'Email':email, 'Verification Code In':verifyCodeIn, 'Charger Number':chargerNum, 'Charger Type':chargerType, 'Locker Number':lockerNum, 'Timestamp In':timestamp})
+    # Make a pandas series to store the new data
+    newSeries = pd.Series(data={'Verification Code In': verifyCodeIn, 'Charger Number': chargerNum, 'Charger Type': chargerType, 'Locker Number': lockerNum, 'Timestamp In': timestamp}, name=email)
+
+    # Try to update the user dataframe with the newSeries
+    try:
+
+        # Append the the new series to the user dataframe
+        userDataFrame = userDataFrame.append(newSeries, verify_integrity=True)
     
-    # Fix
-    # Return the userDataFrame                      #Temp should be a data attribute in a class
-    return userDataFrame
+    # Catch a ValueError if there already is a entry for the student in the dataframe
+    except ValueError:
+
+        # Return False
+        return False
+
+    # Else, return True
+    else:
+
+        # Return the userDataFrame                      #Temp should be a data attribute in a class
+        return userDataFrame
 
 
 # Define the manual_get_dataframe method to manually open a csv file and store it in a dataframe
