@@ -24,7 +24,7 @@ def getStudentEmail():
     # Send email
     verification.getVerificationCode()
     print(verification.verificationCode)
-    verification.sendVerificationCode()
+    #verification.sendVerificationCode()
     print("Code sent!")
 
 

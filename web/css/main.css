@@ -12,8 +12,35 @@
     top: 50%;
     left: 50%;
     margin-right: -50%;
-    transform: translate(-50%, -50%)
+    transform: translate(-50%, -50%);
 
+}
+
+.login-div-animate {
+
+  animation: kf-login-div 2s;
+
+  width:500px;
+  height: 210px;
+  padding: 60px 35px 35px 35px;
+  border-radius: 40px;
+  background: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1,
+              -13px -13px 20px #ffffff;
+
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  
+}
+
+@keyframes kf-login-div {
+  0% {width: 430px; height: 400px;}
+  50% {width: 430px; height: 400px;}
+  100% {width: 500px; height: 210px;}
 }
 
 .title {
@@ -32,6 +59,44 @@
   letter-spacing: 3px;
   font-family: 'Noto Sans', sans-serif;
 }
+
+.title-animate {
+
+  animation: kf-title 2s;
+
+  text-align: center;
+  font-size: 28px;
+  padding-top: 24px;
+  letter-spacing: 0.5px;
+  font-family: 'Noto Sans', sans-serif;
+  color: gray;
+
+  position: relative;
+  top: -50px;
+
+}
+.subtitle-animate {
+
+  animation: kf-title 2s;
+
+  text-align: center;
+  font-size: 15px;
+  color: gray;
+  padding-top: 7px;
+  letter-spacing: 3px;
+  font-family: 'Noto Sans', sans-serif;
+
+  position: relative; 
+  top: -50px
+}
+
+@keyframes kf-title {
+  0% {position: relative; top: 0px}
+  50% {position: relative; top: 0px}
+  100% {position: relative; top: -50px}
+
+}
+
 
 .fields {
   padding: 75px 5px 5px 5px;
@@ -52,6 +117,8 @@
   float: left;
   box-shadow: inset 8px 8px 8px #cbced1,
               inset -8px -8px 8px #ffffff;;
+
+  width: 55%;
 }
 .domain {
   border: none;
@@ -66,9 +133,63 @@
   border-radius: 25px;
   float: right;
   box-shadow: inset 8px 8px 8px #cbced1,
-              inset -8px -8px 8px #ffffff;;
+              inset -8px -8px 8px #ffffff;
+
+  width: 40%;
 }
-         
+
+
+.email-animate {
+
+  animation: kf-email 2s;
+
+  margin-bottom: 30px;
+  border-radius: 25px;
+  float: left;
+  box-shadow: inset 8px 8px 8px #cbced1,
+              inset -8px -8px 8px #ffffff;;
+  
+  width: 100%;
+  position: relative;
+  top: -90px;
+  content: 'Verification';
+}
+
+.domain-animate {
+
+  animation: kf-domain 1s;
+
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 16px;
+  font-family: 'Noto Sans', sans-serif;
+  color: gray;
+  padding: 20px 10px 20px 5px;
+
+  margin-bottom: 30px;
+  border-radius: 25px;
+  float: right;
+  box-shadow: inset 8px 8px 8px #cbced1,
+              inset -8px -8px 8px #ffffff;
+
+  width: 0%;
+  opacity: 0;
+  position: relative;
+  top: -20px
+
+}
+
+@keyframes kf-email {
+  0% {width: 55%; position: relative; top: 0px;}
+  50% {width: 55%; position: relative; top: 0px;}
+  100% {width: 100%; position: relative; top: -90px;}
+}
+@keyframes kf-domain {
+  0% {width: 40%; opacity: 1; position: relative; top: 0px; font-size: 16px;}
+  100% {width: 0%; opacity: 0; position: relative; top: -20px; font-size: 16px;}
+}
+
 .signin-button {
   outline: none;
   border:none;
@@ -94,4 +215,35 @@
 }
 .signin-button:active {
   background:#1da88a;
+}
+.signin-button-animate {
+
+  animation: kf-signin-button 2s;
+
+  outline: none;
+  border:none;
+  cursor: pointer;
+  width: 100%;
+  height: 60px;
+  border-radius: 30px;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'Noto Sans', sans-serif;
+  color:#fff;
+  text-align: center;
+  background: #24cfaa;
+  box-shadow: 3px 3px 8px #b1b1b1,
+              -3px -3px 8px #ffffff;
+  
+  transition: 0.5s;
+  position: relative;
+  top: -100px;
+  width: 85%;
+  right: -40px;
+}
+
+@keyframes kf-signin-button {
+  0% {position: relative; top: 20px; width: 100%; right: 0px;}
+  50% {position: relative; top: 20px; width: 100%; right: 0px;}
+  100% {position: relative; top: -100px; width: 85%; right: -40px;}
 }
