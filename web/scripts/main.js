@@ -4,9 +4,13 @@ document.getElementById('submit-button').addEventListener("click", ()=>{eel.getS
 // Get the student ID from the textbox
 eel.expose(getStudentEmailJS)
 function getStudentEmailJS() {
-    firstAnimation()
-    return document.getElementById('email-input').value
+    firstAnimation()  // Trigger animations
+    var email = document.getElementById('email-input').value
+    var nEmail = email
+    document.getElementById('email-input').clear
+    return nEmail
 }
+
 
 function firstAnimation() {
     document.getElementById('domain').className = 'domain-animate'
