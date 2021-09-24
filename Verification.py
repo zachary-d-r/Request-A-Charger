@@ -13,11 +13,13 @@ class verification:
     toAddress = ''  # Who we are sending the email to
     fromAddress = ''  # Who is sending the email
     password = 'SC59UB8LY'  # Password to login to smtp
+    verified = False
 
     # Initialize the object by setting the correct email addresses
     def __init__(self, to, fromEmail):
         self.toAddress = to
         self.fromAddress = fromEmail
+        self.verified = False
 
 
     # Generate a random verification code
@@ -25,7 +27,7 @@ class verification:
         self.verificationCode = ''  # Reset the verification code
 
         # Add a random character from the list of characters above
-        for i in range(9):
+        for i in range(5):
             self.verificationCode += self.codeNums[random.randint(0, len(self.codeNums)-1)]
 
         self.MESSAGE = self.verificationCode

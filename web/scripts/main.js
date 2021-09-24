@@ -4,11 +4,19 @@ document.getElementById('submit-button').addEventListener("click", ()=>{eel.getS
 // Get the student ID from the textbox
 eel.expose(getStudentEmailJS)
 function getStudentEmailJS() {
-    firstAnimation()  // Trigger animations
     var email = document.getElementById('email-input').value
-    var nEmail = email
-    document.getElementById('email-input').clear
-    return nEmail
+    firstAnimation()  // Trigger animations
+    return email
+}
+
+eel.expose(clearTextBox)
+function clearTextBox() {
+    document.getElementById('email-input').value = ''
+}
+
+eel.expose(getVerificationCodeJS)
+function getVerificationCodeJS() {
+    return document.getElementById('email-input').value
 }
 
 
@@ -19,5 +27,5 @@ function firstAnimation() {
     document.getElementById('subtitle').className = 'subtitle-animate'
     document.getElementById('email').className = 'email-animate'
     document.getElementById('submit-button').className = 'signin-button-animate'
-    document.getElementById('email-input').placeholder = 'Verification'
+    document.getElementById('email-input').placeholder = 'Check your email for code'
 }
