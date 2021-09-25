@@ -12,19 +12,19 @@ def demo():
     # Store the filename of the student data in a variable
     studentDataFile = 'studentData.dat'
 
-    # Create an instance of the Database class
-    database = Database(studentDataFile)
+    # Create an instance of the StudentDatabase class
+    database = StudentDatabase(studentDataFile)
 
     # Testing adding student data normally
-    success = database.add_student('epresent@emeryweiner.org','ad334f', 1, 'USB-C', 1)
+    success = database.add_student('epresent@emeryweiner.org','ad334f', 1, 'USB-C', 1, database.get_timestamp())
     print('\nDatabase:', database, '\nSuccess:', success)
 
     # Testing trying to add a prexisting student
-    success = database.add_student(email='epresent@emeryweiner.org', verifyCodeIn='agfdgf', chargerNum=2, chargerType='Dell', lockerNumIn=4)
+    success = database.add_student(email='epresent@emeryweiner.org', verifyCodeIn='agfdgf', chargerNum=2, chargerType='Dell', lockerNumIn=4, timeIn=pd.Timestamp.now())
     print('\nDatabase:', database, '\nSuccess:', success)
 
     # Testing editing student data normally
-    success = database.edit_student('epresent@emeryweiner.org', verifyCodeOut='df4ert', lockerNumOut=5, timeOut=pd.Timestamp.now())
+    success = database.edit_student('epresent@emeryweiner.org', verifyCodeOut='df4ert', lockerNumOut=5, timeOut=database.get_timestamp())
     print('\nDatabase:', database, '\nSuccess:', success)
 
     # Testing trying to edit a non-existent student
@@ -45,13 +45,19 @@ def demo():
 
 
 # Define the Database class to work with the student data
-class Database():
+class StudentDatabase():
 
 
     # Initialize the database
     def __init__(self, filename):
         # Store the filename in a data attribute
         self.__filename = filename
+
+        # Create a list with the data names
+        self.__data_names = ['Verification Code In', 'Charger Number', 'Charger Type', 'Locker Number In', 'Timestamp In', 'Verification Code Out', 'Locker Number Out', 'Timestamp Out']
+        
+        # Store the index name in a data attribute
+        self.__indexName = 'Email'
 
         # Set up the dataframe
         self.setup_dataframe()
@@ -62,29 +68,79 @@ class Database():
         # Try to get the student data from the pickle file
         self.__studentFrame = self.data_pickle()
 
-        # Create a list with the data names
-        self.__data_names = ['Verification Code In', 'Charger Number', 'Charger Type', 'Locker Number In', 'Timestamp In', 'Verification Code Out', 'Locker Number Out', 'Timestamp Out']
-
         # If the dataframe is empty, then set it up completely
         if self.__studentFrame.empty:
-
-            # Make a dataframe with the data names
-            self.__studentFrame = pd.DataFrame(columns=self.__data_names)
-
-            # Store the index name in a variable
-            indexName = 'Email'
             
-            # Set the index label of the dataframe to the index name variable
-            self.__studentFrame.rename_axis(indexName, inplace=True)
+            # Call the reset_dataframe method to reset the dataframe
+            self.reset_dataframe()
+
+
+    # Define the reset_dataframe to set the student dataframe to an empty dataframe formatted
+    def reset_dataframe(self):
+        # Make a dataframe with the data names
+        self.__studentFrame = pd.DataFrame(columns=self.__data_names)
+        
+        # Set the index label of the dataframe to the index name data attribute
+        self.__studentFrame.rename_axis(self.__indexName, inplace=True)
+    
+
+    # Define the csv_to_dataframe method to open a csv file and store it as the dataframe
+    def csv_to_dataframe(self, filename):
+        # Read the csv file using pandas
+        dataframe = pd.read_csv(filename, index_col=0)
+
+        # Store the dataframe as the main dataframe
+        self.__studentFrame = dataframe
+
+        # Pickle the dataframe to its file
+        self.data_pickle('w')
+
+
+    # Define the data_pickle method to load from or dump to the data's pickle file
+    def data_pickle(self, mode='r'):
+            # If mode is equal to read, then read the contents of the data file
+            if mode == 'r':
+
+                # Try to unpickle the file
+                try:
+
+                    # Load the contents of the file into a pandas object
+                    pandasObject = pd.read_pickle(self.__filename)
+                
+                # Catch an exception if the file does not exist
+                except (OSError, IOError, EOFError):
+
+                    # Set the pandas object to an empty dataframe
+                    pandasObject = pd.DataFrame()
+
+                # Finally, return the pandas object
+                finally:
+
+                    # Return the pandas object
+                    return pandasObject
+
+            # Else if mode is equal to write, then dump the data into its data file
+            elif mode == 'w':
+
+                # Dump the pandas object into its file
+                self.__studentFrame.to_pickle(self.__filename)
 
 
     # Define the add_student method to add student data to the student data dataframe
-    def add_student(self, email, verifyCodeIn, chargerNum, chargerType, lockerNumIn):
+    def add_student(self, email, verifyCodeIn=None, chargerNum=None, chargerType=None, lockerNumIn=None, timeIn=None, verifyCodeOut=None, lockerNumOut=None, timeOut=None):
         # If the email is in the index values, then edit the student's data
         if email not in self.__studentFrame.index:
 
-            # Get the pandas Series associated with the student's data
-            self.__studentFrame.loc[email, ['Verification Code In', 'Charger Number', 'Charger Type', 'Locker Number In', 'Timestamp In']] = verifyCodeIn, chargerNum, chargerType, lockerNumIn, pd.Timestamp.now()
+            # Make a two dimensional list with all the values that should be added
+            addValues = [keyValuePair for keyValuePair in zip(self.__data_names,
+            (verifyCodeIn, chargerNum, chargerType, lockerNumIn, timeIn, verifyCodeOut, lockerNumOut, timeOut)) if keyValuePair[1] != None]
+
+            # For keyValuePair in the add values, add the student's data              # I realize this is inefficient = pandas can sometimes be annoying
+            for keyValuePair in addValues:
+
+                # Add the student's data
+                self.__studentFrame.loc[email, keyValuePair[0]] = keyValuePair[1]
+
             
             # Pickle the dataframe to its file
             self.data_pickle('w')
@@ -234,47 +290,14 @@ class Database():
         return None
 
 
-    # Define the csv_to_dataframe method to open a csv file and store it as the dataframe
-    def csv_to_dataframe(self, filename):
-        # Read the csv file using pandas
-        dataframe = pd.read_csv(filename, index_col=0)
+    # Define the get_timestamp method to get the current timestamp
+    def get_timestamp(self):
+        # Create a timestamp object for the current time with pandas
+        timestamp = pd.Timestamp.now()
 
-        # Store the dataframe as the main dataframe
-        self.__studentFrame = dataframe
-
-        # Pickle the dataframe to its file
-        self.data_pickle('w')
-
-
-    # Define the data_pickle method to load from or dump to the data's pickle file
-    def data_pickle(self, mode='r'):
-            # If mode is equal to read, then read the contents of the data file
-            if mode == 'r':
-
-                # Try to unpickle the file
-                try:
-
-                    # Load the contents of the file into a pandas object
-                    pandasObject = pd.read_pickle(self.__filename)
-                
-                # Catch an exception if the file does not exist
-                except (OSError, IOError, EOFError):
-
-                    # Set the pandas object to an empty dataframe
-                    pandasObject = pd.DataFrame()
-
-                # Finally, return the pandas object
-                finally:
-
-                    # Return the pandas object
-                    return pandasObject
-
-            # Else if mode is equal to write, then dump the data into its data file
-            elif mode == 'w':
-
-                # Dump the pandas object into its file
-                self.__studentFrame.to_pickle(self.__filename)
-        
+        # Return the timestamp
+        return timestamp
+    
 
     # Define the __str__ method to show the dataframe properly if an instance of the class is used as a string
     def __str__(self):
