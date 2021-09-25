@@ -135,12 +135,11 @@ class StudentDatabase():
             addValues = [keyValuePair for keyValuePair in zip(self.__data_names,
             (verifyCodeIn, chargerNum, chargerType, lockerNumIn, timeIn, verifyCodeOut, lockerNumOut, timeOut)) if keyValuePair[1] != None]
 
-            # For keyValuePair in the add values, add the student's data              # I realize this is inefficient = pandas can sometimes be annoying
-            for keyValuePair in addValues:
+            # For column, data in the add values, add the student's data              # I realize this is inefficient = pandas can sometimes be annoying
+            for column, data in addValues:
 
                 # Add the student's data
-                self.__studentFrame.loc[email, keyValuePair[0]] = keyValuePair[1]
-
+                self.__studentFrame.loc[email, column] = data
             
             # Pickle the dataframe to its file
             self.data_pickle('w')
@@ -192,16 +191,14 @@ class StudentDatabase():
             changeValues = [keyValuePair for keyValuePair in zip(self.__data_names,
             (verifyCodeIn, chargerNum, chargerType, lockerNumIn, timeIn, verifyCodeOut, lockerNumOut, timeOut)) if keyValuePair[1] != None]
 
-            # For keyValuePair in the change values, update the student's data              # I realize this is inefficient = pandas can sometimes be annoying
-            for keyValuePair in changeValues:
+            # For column, data in the change values, update the student's data              # I realize this is inefficient = pandas can sometimes be annoying
+            for column, data in changeValues:
 
                 # Update the student's data
-                self.__studentFrame.loc[email, keyValuePair[0]] = keyValuePair[1]
-
+                self.__studentFrame.loc[email, column] = data
 
             # Pickle the dataframe to its file
-            self.data_pickle('w')
-            
+            self.data_pickle('w')  
             
             # Return True
             return True
