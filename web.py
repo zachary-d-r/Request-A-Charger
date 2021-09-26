@@ -33,9 +33,10 @@ def getStudentEmail():
     else:
         getVerificationCode()
 
+        # Trigger a new animation
+
 @eel.expose
 def getVerificationCode():
-
     verificationCode = str(eel.getVerificationCodeJS()()).upper()
     if verificationCode == verification.verificationCode:
         print("User verified")
