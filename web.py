@@ -54,6 +54,9 @@ def sendVerification():
     #verification.sendVerificationCode()
     print(f'Verification code: {verification.verificationCode} was sent to {student.email}')
 
+@eel.expose
+def setChargerType(num):
+    student.charger = num
 
 def openLocker():
     x = 0
