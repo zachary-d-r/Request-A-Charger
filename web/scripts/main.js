@@ -20,7 +20,6 @@ function clearTextBox() {
 
 eel.expose(getVerificationCodeJS)
 function getVerificationCodeJS() {
-    secondAnimation()
     return document.getElementById('email-input').value
 }
 
@@ -65,4 +64,11 @@ function firstAnimation() {
 
 function chargerSelected(num) {
     thirdAnimation()
+}
+
+eel.expose(newVerificationCode) 
+function newVerificationCode() {
+    document.getElementById('title').innerHTML = 'Verification Failed'
+    document.getElementById('subtitle').innerHTML = 'Resending Code'
+    document.getElementById('email-input').placeholder = 'Check email for new code'
 }

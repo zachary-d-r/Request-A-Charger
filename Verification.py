@@ -14,6 +14,7 @@ class verification:
     fromAddress = ''  # Who is sending the email
     password = 'SC59UB8LY'  # Password to login to smtp
     verified = False
+    isVerified = False
 
     # Initialize the object by setting the correct email addresses
     def __init__(self, to, fromEmail):

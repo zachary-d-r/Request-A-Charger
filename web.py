@@ -23,28 +23,37 @@ def getStudentEmail():
         verification.toAddress = student.email
 
         # Send email
-        verification.getVerificationCode()
-        #verification.sendVerificationCode()
+        sendVerification()
 
-        print(f'Verification code: {verification.verificationCode} was sent to {student.email}')
 
         verification.verified = True
 
     else:
         getVerificationCode()
+        if verification.isVerified == False:
+            eel.newVerificationCode()
+            sendVerification()
+        else: eel.secondAnimation()
 
-        # Trigger a new animation
 
 @eel.expose
 def getVerificationCode():
     verificationCode = str(eel.getVerificationCodeJS()()).upper()
     if verificationCode == verification.verificationCode:
+        verification.isVerified = True
         print("User verified")
         return True
 
 @eel.expose
 def getEmail():
     return student.email
+
+@eel.expose
+def sendVerification():
+    verification.getVerificationCode()
+    #verification.sendVerificationCode()
+    print(f'Verification code: {verification.verificationCode} was sent to {student.email}')
+
 
 def openLocker():
     x = 0
