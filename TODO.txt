@@ -1,0 +1,4 @@
+For UI:
+    Make verification check if its correct or not
+    store charger type
+    Make animation from end screen to the first screen
