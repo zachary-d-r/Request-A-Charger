@@ -1,4 +1,5 @@
 #Send a email and image as an attachment with python 
+#requires Templeate.docx
 #importing the modules
 import os
 #send an email
