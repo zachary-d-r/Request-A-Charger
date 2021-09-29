@@ -101,8 +101,8 @@ class Email():
 
 
 email = Email()
-email.VERIFICATION_CODE = '93812fe'
-email.RECEIVER_EMAIL_ADDRESS = 'epresent@emeryweiner.org'
+email.VERIFICATION_CODE = ''
+email.RECEIVER_EMAIL_ADDRESS = ''
 email.EditTempleate()
 email.ConvertDoc()
 email.sendEmail()
