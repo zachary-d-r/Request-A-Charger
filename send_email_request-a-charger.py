@@ -22,9 +22,9 @@ from pdf2image import convert_from_path #pip install pdf2image
 class Email():
     def __init__(self):
         #content for email: sender, receiver, password, message, and subject
-        self.SENDER_EMAIL_ADDRESS = 'requset-a-charger@computer4u.com' 
+        self.SENDER_EMAIL_ADDRESS = '' 
         self.RECEIVER_EMAIL_ADDRESS = ''
-        self.PASSWORD = 'SC59UB8LY'
+        self.PASSWORD = ''
 
         self.MESSAGE = """Hi, 
         You recently requested to rent a charger for a device.
@@ -102,7 +102,6 @@ class Email():
 
 email = Email()
 email.VERIFICATION_CODE = ''
-email.RECEIVER_EMAIL_ADDRESS = ''
 email.EditTempleate()
 email.ConvertDoc()
 email.sendEmail()
