@@ -51,12 +51,13 @@ def getEmail():
 @eel.expose
 def sendVerification():
     verification.getVerificationCode()
-    #verification.sendVerificationCode()
+    verification.sendVerificationCode()
     print(f'Verification code: {verification.verificationCode} was sent to {student.email}')
 
 @eel.expose
 def setChargerType(num):
     student.charger = num
+    print(student.readCharger())
 
 def openLocker():
     x = 0
