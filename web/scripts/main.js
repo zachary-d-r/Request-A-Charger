@@ -72,4 +72,11 @@ function newVerificationCode() {
     document.getElementById('title').innerHTML = 'Verification Failed'
     document.getElementById('subtitle').innerHTML = 'Resending Code'
     document.getElementById('email-input').placeholder = 'Check email for new code'
+
+    document.getElementById('title').className = 'validation-title'
+    document.getElementById('subtitle').className = 'validation-subtitle'
+    document.getElementById('login-div').className = 'validation-login-div'
+    document.getElementById('submit-button').className = 'validation-signin-button'
+    document.getElementById('email').className = 'validation-email'
+    document.getElementById('domain').className = 'validation-domain'
 }

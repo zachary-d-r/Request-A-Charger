@@ -546,3 +546,128 @@
   50% {position: relative; top: -100px; width: 95%; right: -10px; opacity: 0;}
   100% {position: relative; top: -100px; width: 95%; right: -10px; opacity: 1;}
 }
+
+/*Failed Validation Animation Code*/
+.validation-title {
+
+  animation: kf-validation-title 1s;
+
+  text-align: center;
+  font-size: 28px;
+  padding-top: 24px;
+  letter-spacing: 0.5px;
+  font-family: 'Noto Sans', sans-serif;
+  color: gray;
+}
+@keyframes kf-validation-title {
+  0% {position: relative; top: -50px}
+  100% {position: relative; top: 0px}
+}
+.validation-subtitle {
+
+  animation: kf-validation-title 1s;
+
+  text-align: center;
+  font-size: 15px;
+  color: gray;
+  padding-top: 7px;
+  letter-spacing: 3px;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.validation-login-div {
+
+  animation: kf-validation-login-div 1s;
+
+  width:430px;
+  height: 400px;
+  padding: 60px 35px 35px 35px;
+  border-radius: 40px;
+  background: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1,
+              -13px -13px 20px #ffffff;
+
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+
+}
+
+@keyframes kf-validation-login-div {
+  0% {width: 500px; height: 210px;}
+  100% {width: 430px; height: 400px;}
+}
+
+.validation-signin-button {
+
+  animation: kf-validation-signin-button 1s;
+
+  outline: none;
+  border:none;
+  cursor: pointer;
+  width: 100%;
+  height: 60px;
+  border-radius: 30px;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'Noto Sans', sans-serif;
+  color:#fff;
+  text-align: center;
+  background: #24cfaa;
+  box-shadow: 3px 3px 8px #b1b1b1,
+              -3px -3px 8px #ffffff;
+  transition: 0.5s;
+
+  position: relative;
+  top: 20px;
+}
+@keyframes kf-validation-signin-button {
+  0% {position: relative; top: -100px; width: 85%; right: -40px;}
+  100% {position: relative; top: 20px; width: 100%; right: 0px;}
+}
+
+.validation-email {
+
+  animation: kf-validation-email 1s;
+
+  margin-bottom: 30px;
+  border-radius: 25px;
+  float: left;
+  box-shadow: inset 8px 8px 8px #cbced1,
+              inset -8px -8px 8px #ffffff;;
+
+  width: 55%;
+}
+.validation-domain {
+
+  animation: kf-validation-domain 2s;
+
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 16px;
+  font-family: 'Noto Sans', sans-serif;
+  color: gray;
+  padding: 20px 10px 20px 5px;
+
+  margin-bottom: 30px;
+  border-radius: 25px;
+  float: right;
+  box-shadow: inset 8px 8px 8px #cbced1,
+              inset -8px -8px 8px #ffffff;
+
+  width: 40%;
+}
+
+@keyframes kf-validation-email {
+  0% {width: 100%; position: relative; top: -90px;}
+  100% {width: 55%; position: relative; top: 0px;}
+}
+@keyframes kf-validation-domain {
+  0% {width: 0%; opacity: 0; position: relative; top: -20px; font-size: 16px;}
+  50% {width: 0%; opacity: 0; position: relative; top: -20px; font-size: 16px;}
+  100% {width: 40%; opacity: 1; position: relative; top: 0px; font-size: 16px;}
+}
