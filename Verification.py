@@ -17,7 +17,7 @@ class verification:
     MESSAGE = ''  # This is your message
     SUBJECT = 'Varification Number'  # This is your subject
 
-    codeNums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'F', 'L', 'Y', 'E', 'P', 'O', 'U', 'W', 'R', 'G', 'S', 'V', 'Z']  # Characters that can be in a verification code
+    codeNums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'F', 'L', 'Y', 'E', 'P', 'X', 'U', 'W', 'R', 'G', 'S', 'V', 'Z']  # Characters that can be in a verification code
     verificationCode = ''  # The code
     toAddress = ''  # Who we are sending the email to
     fromAddress = ''  # Who is sending the email
