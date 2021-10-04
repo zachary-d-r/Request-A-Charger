@@ -1,4 +1,7 @@
 .login-div {
+
+  animation: kf-last-login-div 1s;
+
   width:430px;
   height: 400px;
   padding: 60px 35px 35px 35px;
@@ -96,6 +99,9 @@
 }
 
 .title {
+
+  animation: kf-last-title 1s;
+
   text-align: center;
   font-size: 28px;
   padding-top: 24px;
@@ -104,6 +110,9 @@
   color: gray;
 }
 .subtitle {
+
+  animation: kf-last-title 1s;
+
   text-align: center;
   font-size: 15px;
   color: gray;
@@ -205,6 +214,9 @@
   padding: 20px 10px 20px 5px;
 }
 .email {
+
+  animation: kf-last-email 1s;
+
   margin-bottom: 30px;
   border-radius: 25px;
   float: left;
@@ -214,6 +226,12 @@
   width: 55%;
 }
 .domain {
+
+  animation: kf-last-domain 2s;
+
+  visibility: visible;
+  opacity: 1;
+
   border: none;
   outline: none;
   background: none;
@@ -342,6 +360,9 @@
 }
 
 .button {
+
+  animation: kf-last-signin-button 1s;
+
   width: 175px;
   height: 175px;
   border-radius: 15%;
@@ -428,6 +449,9 @@
 }
 
 .signin-button {
+
+  animation: kf-last-signin-button 1s;
+
   outline: none;
   border:none;
   cursor: pointer;
@@ -667,6 +691,28 @@
   100% {width: 55%; position: relative; top: 0px;}
 }
 @keyframes kf-validation-domain {
+  0% {width: 0%; opacity: 0; position: relative; top: -20px; font-size: 16px;}
+  100% {width: 40%; opacity: 1; position: relative; top: 0px; font-size: 16px;}
+}
+
+/* Last Animation*/
+@keyframes kf-last-title {
+  0% {position: relative; top: -50px}
+  100% {position: relative; top: 0px}
+}
+@keyframes kf-last-signin-button {
+  0% {position: relative; top: -100px; width: 95%; right: -10px;}
+  100% {position: relative; top: 20px; width: 100%; right: 0px;}
+}
+@keyframes kf-last-login-div {
+  0% {width: 400px; height: 400px;}
+  100% {width: 430px; height: 400px;}
+}
+@keyframes kf-last-email {
+  0% {width: 100%; height: 250px; position: relative; top: -90px;}
+  100% {width: 55%; position: relative; top: 0px; height: 62px;}
+}
+@keyframes kf-last-domain {
   0% {width: 0%; opacity: 0; position: relative; top: -20px; font-size: 16px;}
   50% {width: 0%; opacity: 0; position: relative; top: -20px; font-size: 16px;}
   100% {width: 40%; opacity: 1; position: relative; top: 0px; font-size: 16px;}

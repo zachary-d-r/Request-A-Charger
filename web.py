@@ -23,29 +23,33 @@ def getStudentEmail():
         verification.toAddress = student.email
 
         # Send email
-        verification.getVerificationCode()
-        print(f'Verification code: {verification.verificationCode} was sent to {student.email}')
-
         sendVerification()
 
         verification.verified = True
 
     else:
-        getVerificationCode()
-        if verification.isVerified == False:
-            verification.getVerificationCode()
-            eel.newVerificationCode()
+        if student.charger != 0:
+            eel.clearTextBox()
+            eel.lastAnimation()
             verification.verified = False
-        else: eel.secondAnimation()
+            student.charger = 0
+        else:
+            getVerified()
+            if verification.isVerified == False:
+                eel.newVerificationCode()
+                verification.verified = False
+            else: eel.secondAnimation()
+
 
 
 @eel.expose
-def getVerificationCode():
+def getVerified():
     verificationCode = str(eel.getVerificationCodeJS()()).upper()
     if verificationCode == verification.verificationCode:
         verification.isVerified = True
         print("User verified")
         return True
+    else: return False
 
 @eel.expose
 def getEmail():
@@ -54,7 +58,9 @@ def getEmail():
 @eel.expose
 def sendVerification():
     verification.getVerificationCode()
-    verification.sendVerificationCode()
+    #verification.sendVerificationCode()
+
+    print(f'Verification code: {verification.verificationCode} was sent to {student.email}')
 
 @eel.expose
 def setChargerType(num):

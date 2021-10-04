@@ -80,3 +80,15 @@ function newVerificationCode() {
     document.getElementById('email').className = 'validation-email'
     document.getElementById('domain').className = 'validation-domain'
 }
+
+eel.expose(lastAnimation)
+function lastAnimation() {
+    document.getElementById('title').className = 'title'
+    document.getElementById('subtitle').className = 'subtitle'
+    document.getElementById('submit-button').className = 'signin-button'
+    document.getElementById('login-div').className = 'login-div'
+    document.getElementById('email').className = 'email'
+    document.getElementById('domain').className = 'domain'
+    document.getElementById('email-input').style.visibility = 'visible'
+    document.getElementById('email-input').placeholder = 'email'
+}
