@@ -303,8 +303,4 @@ class StudentDatabase():
         return str(self.__studentFrame)
 
 
-# When main is called
-if __name__ == '__main__':
-
-    # Call the demo function
-    demo()
+demo()

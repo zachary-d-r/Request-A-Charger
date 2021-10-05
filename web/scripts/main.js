@@ -48,7 +48,14 @@ function thirdAnimation() {
     document.getElementById('submit-button').className = 'signin-button-animate-3'
     document.getElementById('submit-button').innerHTML = 'Done'
     document.getElementById('email').className = 'number-box-3'
+    eel.stall()
 
+}
+
+eel.expose(numberAnimate)
+function numberAnimate() {
+    document.getElementById('locker-number').innerHTML = 5
+    document.getElementById('locker-number').className = 'locker-number-show'
 }
 
 // Animation from email screen to verification
@@ -91,4 +98,5 @@ function lastAnimation() {
     document.getElementById('domain').className = 'domain'
     document.getElementById('email-input').style.visibility = 'visible'
     document.getElementById('email-input').placeholder = 'email'
+    document.getElementById('locker-number').className = 'locker-number-hidden'
 }

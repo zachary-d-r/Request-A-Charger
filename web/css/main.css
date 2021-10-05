@@ -571,6 +571,44 @@
   100% {position: relative; top: -100px; width: 95%; right: -10px; opacity: 1;}
 }
 
+.locker-number-hidden {
+  animation: kf-locker-hide 0.5s;
+  opacity: 0;
+  font-size: 0px;
+  padding-top: 0px;
+  visibility: hidden;
+}
+
+.locker-number-show {
+
+  animation: kf-locker-number 2s;
+
+  text-align: center;
+  font-size: 250px;
+  padding-top: 24px;
+  letter-spacing: 0.5px;
+  font-family: 'Noto Sans', sans-serif;
+  color: gray;
+
+  opacity: 1;
+  visibility: visible;
+
+  position: relative;
+  top: -75px;
+  left: -255px;
+}
+@keyframes kf-locker-number {
+  0% {opacity: 0; visibility: hidden;}
+  50% {opacity: 0; visibility: hidden;}
+  100% {position: relative; top: -75px; left: -255px; text-align: center; font-size: 250px; padding-top: 24px; letter-spacing: 0.5px; font-family: 'Noto Sans', sans-serif; color: gray; opacity: 1; visibility: visible;}
+}
+
+@keyframes kf-locker-hide {
+  0% {position: relative; top: -75px; left: -255px; text-align: center; font-size: 250px; padding-top: 24px; letter-spacing: 0.5px; font-family: 'Noto Sans', sans-serif; color: gray; opacity: 1; visibility: visible;}
+  50% {opacity: 0; visibility: hidden;}
+  100% {opacity: 0; visibility: hidden; font-size: 0px; padding-top: 0px;}
+}
+
 /*Failed Validation Animation Code*/
 .validation-title {
 

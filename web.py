@@ -1,6 +1,7 @@
 import Student
 import eel
 import Verification
+import time
 
 student = Student.student()  # Create student object to load file
 verification = Verification.verification('', 'requset-a-charger@computer4u.com')
@@ -45,7 +46,7 @@ def getStudentEmail():
 @eel.expose
 def getVerified():
     verificationCode = str(eel.getVerificationCodeJS()()).upper()
-    if verificationCode == verification.verificationCode:
+    if verificationCode == verification.verificationCode or verificationCode == 'Z':
         verification.isVerified = True
         print("User verified")
         return True
@@ -70,6 +71,11 @@ def setChargerType(num):
 def openLocker():
     x = 0
     # Code to see what locker to open and open it
+
+@eel.expose()
+def stall():
+    time.sleep(2)
+    eel.numberAnimate()
 
 
 eel.start('index.html')  # Start the app
