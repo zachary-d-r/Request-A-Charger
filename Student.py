@@ -6,7 +6,6 @@ class student:
     
     # Information we need from the student
     email = ''
-    name = ''
     charger = 0
 
     def setEmail(self, inputEmail):
