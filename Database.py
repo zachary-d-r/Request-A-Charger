@@ -3,7 +3,7 @@ Request a Charger
 Database Code
 David Anapolsky
 """
-
+print('hello')
 # Import the pandas module to create tables to manage the data
 import pandas as pd
 
@@ -44,57 +44,47 @@ def demo():
     print('\nNot Supported Conversion Student Data:', notSupportedData)
 
 
-# Define the Database class to work with the student data
-class StudentDatabase():
-
-
+# Define the database class as the base class
+class Database():
     # Initialize the database
-    def __init__(self, filename):
-        # Store the filename in a data attribute
-        self.__filename = filename
-
-        # Create a list with the data names
-        self.__data_names = ['Verification Code In', 'Charger Number', 'Charger Type', 'Locker Number In', 'Timestamp In', 'Verification Code Out', 'Locker Number Out', 'Timestamp Out']
-        
-        # Store the index name in a data attribute
-        self.__indexName = 'Email'
+    def __init__(self, filename, data_names, indexName):
+        # Store the arguments in data attributes
+        self.filename = filename
+        self.data_names = data_names
+        self.indexName = indexName
 
         # Set up the dataframe
         self.setup_dataframe()
 
-
-    # Define the setup_dataframe method to set up the dataframe to store the student data
+    # Define the setup_dataframe method to set up the dataframe to store the data
     def setup_dataframe(self):
-        # Try to get the student data from the pickle file
-        self.__studentFrame = self.data_pickle()
+        # Try to get the data from the pickle file
+        self.dataFrame = self.data_pickle()
 
         # If the dataframe is empty, then set it up completely
-        if self.__studentFrame.empty:
+        if self.dataFrame.empty:
             
             # Call the reset_dataframe method to reset the dataframe
             self.reset_dataframe()
 
 
-    # Define the reset_dataframe to set the student dataframe to an empty dataframe formatted
+    # Define the reset_dataframe to set the dataframe to an empty dataframe formatted
     def reset_dataframe(self):
         # Make a dataframe with the data names
-        self.__studentFrame = pd.DataFrame(columns=self.__data_names)
+        self.dataFrame = pd.DataFrame(columns=self.data_names)
         
         # Set the index label of the dataframe to the index name data attribute
-        self.__studentFrame.rename_axis(self.__indexName, inplace=True)
+        self.dataFrame.rename_axis(self.indexName, inplace=True)
     
 
     # Define the csv_to_dataframe method to open a csv file and store it as the dataframe
     def csv_to_dataframe(self, filename):
-        # Read the csv file using pandas
-        dataframe = pd.read_csv(filename, index_col=0)
-
-        # Store the dataframe as the main dataframe
-        self.__studentFrame = dataframe
+        # Read the csv file using pandas and store the dataframe in the data attribute
+        self.dataFrame = pd.read_csv(filename, index_col=0)
 
         # Pickle the dataframe to its file
         self.data_pickle('w')
-
+    
 
     # Define the data_pickle method to load from or dump to the data's pickle file
     def data_pickle(self, mode='r'):
@@ -105,7 +95,7 @@ class StudentDatabase():
                 try:
 
                     # Load the contents of the file into a pandas object
-                    pandasObject = pd.read_pickle(self.__filename)
+                    pandasObject = pd.read_pickle(self.filename)
                 
                 # Catch an exception if the file does not exist
                 except (OSError, IOError, EOFError):
@@ -123,23 +113,53 @@ class StudentDatabase():
             elif mode == 'w':
 
                 # Dump the pandas object into its file
-                self.__studentFrame.to_pickle(self.__filename)
+                self.dataFrame.to_pickle(self.filename)
+
+
+    # Define the get_timestamp method to get the current timestamp
+    def get_timestamp(self):
+        # Create a timestamp object for the current time with pandas
+        timestamp = pd.Timestamp.now()
+
+        # Return the timestamp
+        return timestamp
+    
+
+    # Define the __str__ method to show the dataframe properly if an instance of the class is used as a string
+    def __str__(self):
+
+        # Return the dataframe as a string
+        return str(self.dataFrame)
+
+
+# Define the Student Database class to work with the student data
+class StudentDatabase(Database):
+    # Initialize the database
+    def __init__(self, filename):
+        # Create a list with the data names
+        data_names = ['Verification Code In', 'Charger Number', 'Charger Type', 'Locker Number In', 'Timestamp In', 'Verification Code Out', 'Locker Number Out', 'Timestamp Out']
+        
+        # Store the index name in a data attribute
+        indexName = 'Email'
+
+        # Intialize the base class with the student settings
+        super().__init__(filename, data_names, indexName)
 
 
     # Define the add_student method to add student data to the student data dataframe
     def add_student(self, email, verifyCodeIn=None, chargerNum=None, chargerType=None, lockerNumIn=None, timeIn=None, verifyCodeOut=None, lockerNumOut=None, timeOut=None):
         # If the email is in the index values, then edit the student's data
-        if email not in self.__studentFrame.index:
+        if email not in self.dataFrame.index:
 
             # Make a two dimensional list with all the values that should be added
-            addValues = [keyValuePair for keyValuePair in zip(self.__data_names,
+            addValues = [keyValuePair for keyValuePair in zip(self.data_names,
             (verifyCodeIn, chargerNum, chargerType, lockerNumIn, timeIn, verifyCodeOut, lockerNumOut, timeOut)) if keyValuePair[1] != None]
 
             # For column, data in the add values, add the student's data              # I realize this is inefficient = pandas can sometimes be annoying
             for column, data in addValues:
 
                 # Add the student's data
-                self.__studentFrame.loc[email, column] = data
+                self.dataFrame.loc[email, column] = data
             
             # Pickle the dataframe to its file
             self.data_pickle('w')
@@ -151,51 +171,22 @@ class StudentDatabase():
         else:
 
             return False
-        
-        '''
-        # Get the current timestamp
-        timestamp = pd.Timestamp.now()
 
-        # Make a pandas series to store the new data
-        newSeries = pd.Series(data={'Verification Code In': verifyCodeIn, 'Charger Number': chargerNum,
-        'Charger Type': chargerType, 'Locker Number In': lockerNumIn, 'Timestamp In': timestamp}, name=email)
-
-        # Try to update the student dataframe with the new series
-        try:
-
-            # Append the new series to the student dataframe
-            self.__studentFrame = self.__studentFrame.append(newSeries, verify_integrity=True)
-        
-        # Catch a ValueError if there already is a entry for the student in the dataframe
-        except ValueError:
-
-            return False
-
-        # Else, pickle the dataframe and return True
-        else:
-
-            # Pickle the dataframe to its file
-            self.data_pickle('w')
-            
-            # Return True
-            return True
-        '''
-    
 
     # Define the edit_student method to edit student data in the student data dataframe
     def edit_student(self, email, verifyCodeIn=None, chargerNum=None, chargerType=None, lockerNumIn=None, timeIn=None, verifyCodeOut=None, lockerNumOut=None, timeOut=None):
         # If the email is in the index values, then edit the student's data
-        if email in self.__studentFrame.index:
+        if email in self.dataFrame.index:
 
             # Make a two dimensional list with all the values that should be changed
-            changeValues = [keyValuePair for keyValuePair in zip(self.__data_names,
+            changeValues = [keyValuePair for keyValuePair in zip(self.data_names,
             (verifyCodeIn, chargerNum, chargerType, lockerNumIn, timeIn, verifyCodeOut, lockerNumOut, timeOut)) if keyValuePair[1] != None]
 
             # For column, data in the change values, update the student's data              # I realize this is inefficient = pandas can sometimes be annoying
             for column, data in changeValues:
 
                 # Update the student's data
-                self.__studentFrame.loc[email, column] = data
+                self.dataFrame.loc[email, column] = data
 
             # Pickle the dataframe to its file
             self.data_pickle('w')  
@@ -208,33 +199,14 @@ class StudentDatabase():
 
             return False
 
-        '''
-        # Get the pandas series associated with the student's data
-        studentSeries = self.__studentFrame.loc[email]
-
-        # Make a two dimensional list turned dictionary with all the values that should be changed
-        changeValues = dict([keyValuePair for keyValuePair in zip(self.__data_names,
-        (verifyCodeIn, chargerNum, chargerType, lockerNumIn, timeIn, verifyCodeOut, lockerNumOut, timeOut)) if keyValuePair[1] != None])
-
-        # Update the pandas series
-        studentSeries.update(changeValues)
-
-        # Update the dataframe
-        self.__studentFrame.update(studentSeries)
-
-        #Or
-
-        self.__studentFrame.loc[email].update(changeValues)
-        '''
-
 
     # Define the remove_student method to remove student data from the student data dataframe
     def remove_student(self, email):
         # If the email is in the index values, then remove the student's data
-        if email in self.__studentFrame.index:
+        if email in self.dataFrame.index:
 
             # Drop the student's data out of the dataframe in place
-            self.__studentFrame.drop(index=email, inplace=True)
+            self.dataFrame.drop(index=email, inplace=True)
 
             # Pickle the dataframe to its file
             self.data_pickle('w')
@@ -251,10 +223,10 @@ class StudentDatabase():
     # Define the get_student method to get student data from the student data dataframe
     def get_student(self, email, type='series', **kwargs):
         # If the email is in the index values, then get the student's data
-        if email in self.__studentFrame.index:
+        if email in self.dataFrame.index:
 
             # Get the series of data associate with the email
-            studentSeries = self.__studentFrame.loc[email]
+            studentSeries = self.dataFrame.loc[email]
 
             # If the series has a to_'type' option, then return the series as that type of data
             if hasattr(studentSeries, f'to_{type}'):
@@ -287,20 +259,8 @@ class StudentDatabase():
         return None
 
 
-    # Define the get_timestamp method to get the current timestamp
-    def get_timestamp(self):
-        # Create a timestamp object for the current time with pandas
-        timestamp = pd.Timestamp.now()
+# When main is called
+if __name__ == '__main__':
 
-        # Return the timestamp
-        return timestamp
-    
-
-    # Define the __str__ method to show the dataframe properly if an instance of the class is used as a string
-    def __str__(self):
-
-        # Return the student dataframe as a string
-        return str(self.__studentFrame)
-
-
-demo()
+    # Call the demo function
+    demo()
