@@ -53,9 +53,9 @@ function thirdAnimation() {
 }
 
 eel.expose(numberAnimate)
-function numberAnimate() {
-    document.getElementById('locker-number').innerHTML = 5
+function numberAnimate(num) {
     document.getElementById('locker-number').className = 'locker-number-show'
+    document.getElementById('locker-number').innerHTML = num
 }
 
 // Animation from email screen to verification
@@ -66,7 +66,9 @@ function firstAnimation() {
     document.getElementById('subtitle').className = 'subtitle-animate'
     document.getElementById('email').className = 'email-animate'
     document.getElementById('submit-button').className = 'signin-button-animate'
-    document.getElementById('email-input').placeholder = 'Check your email for code'
+    document.getElementById('email-input').placeholder = 'Verification Code'
+    document.getElementById('subtitle').innerHTML = 'FOR VERIFICATION CODE'
+    document.getElementById('title').innerHTML = 'Check Your Email'
 }
 
 function chargerSelected(num) {
@@ -99,4 +101,7 @@ function lastAnimation() {
     document.getElementById('email-input').style.visibility = 'visible'
     document.getElementById('email-input').placeholder = 'email'
     document.getElementById('locker-number').className = 'locker-number-hidden'
+    document.getElementById('subtitle').innerHTML = 'Request a Charger'
+    document.getElementById('title').innerHTML = 'PRE-PRE-ALPHA'
+    document.getElementById('submit-button').innerHTML = 'Submit'
 }

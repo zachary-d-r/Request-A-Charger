@@ -2,6 +2,7 @@ import Student
 import eel
 import Verification
 import time
+import random
 
 student = Student.student()  # Create student object to load file
 verification = Verification.verification('', 'requset-a-charger@computer4u.com')
@@ -75,7 +76,9 @@ def openLocker():
 @eel.expose()
 def stall():
     time.sleep(2)
-    eel.numberAnimate()
+    eel.numberAnimate(str(getLockerNumber()))
 
+def getLockerNumber():
+    return random.randint(0, 10)
 
 eel.start('index.html')  # Start the app
