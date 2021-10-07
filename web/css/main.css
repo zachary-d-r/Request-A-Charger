@@ -225,6 +225,10 @@
 
   width: 55%;
 }
+#email-input::placeholder {
+  text-transform: none;
+}
+
 .domain {
 
   animation: kf-last-domain 2s;

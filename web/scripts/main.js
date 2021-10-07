@@ -34,7 +34,6 @@ function secondAnimation() {
     document.getElementById('title').innerHTML = 'Select a Charger'
     document.getElementById('subtitle').innerHTML = 'TO USE FOR YOUR COMPUTER'
     document.getElementById('buttons').className = 'show-button'
-
 }
 
 // Animation from verification to what locker number you take out
@@ -66,9 +65,10 @@ function firstAnimation() {
     document.getElementById('subtitle').className = 'subtitle-animate'
     document.getElementById('email').className = 'email-animate'
     document.getElementById('submit-button').className = 'signin-button-animate'
-    document.getElementById('email-input').placeholder = 'Verification Code'
     document.getElementById('subtitle').innerHTML = 'FOR VERIFICATION CODE'
     document.getElementById('title').innerHTML = 'Check Your Email'
+    document.getElementById('email-input').style.textTransform = 'uppercase'
+    document.getElementById('email-input').placeholder = 'Verification Code'
 }
 
 function chargerSelected(num) {
@@ -88,6 +88,8 @@ function newVerificationCode() {
     document.getElementById('submit-button').className = 'validation-signin-button'
     document.getElementById('email').className = 'validation-email'
     document.getElementById('domain').className = 'validation-domain'
+
+    document.getElementById('email-input').style.textTransform = 'none'
 }
 
 eel.expose(lastAnimation)
@@ -104,4 +106,6 @@ function lastAnimation() {
     document.getElementById('subtitle').innerHTML = 'Request a Charger'
     document.getElementById('title').innerHTML = 'PRE-PRE-ALPHA'
     document.getElementById('submit-button').innerHTML = 'Submit'
+
+    document.getElementById('email-input').style.textTransform = 'none'
 }
