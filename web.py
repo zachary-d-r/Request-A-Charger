@@ -38,6 +38,7 @@ def getStudentEmail():
         else:
             getVerified()
             if verification.isVerified == False:
+                eel.clearTextBox()
                 eel.newVerificationCode()
                 verification.verified = False
             else: eel.secondAnimation()
