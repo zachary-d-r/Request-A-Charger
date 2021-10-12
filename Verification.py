@@ -37,8 +37,8 @@ class verification:
         self.SUBJECT  = 'Verification Code'
 
         # Content for file
-        self.TEMPLEATE = 'Templeate.docx' # File name for the Templeate docx
-        self.NEW_FILE_NAME = 'VerificationCode' # The new name for the file once its has been edited
+        self.TEMPLEATE = 'Verification-Files/Templeate.docx' # File name for the Templeate docx
+        self.NEW_FILE_NAME = 'Verification-Files/VerificationCode' # The new name for the file once its has been edited
         self.fontSize = 28 # Font size for verification code
         self.defaultFontSize = 12 # Font size for deafult text
 
