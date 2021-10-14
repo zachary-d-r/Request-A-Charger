@@ -70,7 +70,10 @@ def sendVerification():
 @eel.expose
 def setChargerType(num):
     student.charger = num
-    print(student.readCharger())
+    print(f"{student.readCharger()} | Charger Num: {student.charger} \n\n")
+
+    studentDatabase.add_student(student.email, student.charger, studentDatabase.get_timestamp())
+    studentDatabase.print_database()
 
 def openLocker():
     x = 0
@@ -82,10 +85,7 @@ def stall():
     lockerNumber = getLockerNumber()
     eel.numberAnimate(str(lockerNumber))
 
-    success = studentDatabase.add_student(student.email, chargerType=random.randint(0, 4), timeIn=studentDatabase.get_timestamp())
-    print('\nDatabase:', studentDatabase, '\nSuccess:', success)
-
 def getLockerNumber():
-    return random.randint(0, 10)
+    return student.charger
 
 eel.start('index.html')  # Start the app
