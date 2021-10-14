@@ -3,9 +3,11 @@ import eel
 import Verification
 import time
 import random
+import Database
 
 student = Student.student()  # Create student object to load file
 verification = Verification.verification('', 'requset-a-charger@computer4u.com')
+studentDatabase = Database.StudentDatabase('studentData.dat')
 
 
 eel.init('web')  # Initialize the app
@@ -77,7 +79,11 @@ def openLocker():
 @eel.expose()
 def stall():
     time.sleep(2)
-    eel.numberAnimate(str(getLockerNumber()))
+    lockerNumber = getLockerNumber()
+    eel.numberAnimate(str(lockerNumber))
+
+    success = studentDatabase.add_student(student.email, chargerType=random.randint(0, 4), timeIn=studentDatabase.get_timestamp())
+    print('\nDatabase:', studentDatabase, '\nSuccess:', success)
 
 def getLockerNumber():
     return random.randint(0, 10)

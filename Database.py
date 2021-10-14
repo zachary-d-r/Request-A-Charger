@@ -20,15 +20,15 @@ def demo():
     print('\nDatabase:', database, '\nSuccess:', success)
 
     # Testing trying to add a prexisting student
-    success = database.add_student(email='epresent@emeryweiner.org', verifyCodeIn='agfdgf', chargerNum=2, chargerType='Dell', lockerNumIn=4, timeIn=pd.Timestamp.now())
+    success = database.add_student(email='epresent@emeryweiner.org', chargerType='Dell', timeIn=pd.Timestamp.now())
     print('\nDatabase:', database, '\nSuccess:', success)
 
     # Testing editing student data normally
-    success = database.edit_student('epresent@emeryweiner.org', verifyCodeOut='df4ert', lockerNumOut=5, timeOut=database.get_timestamp())
+    success = database.edit_student('epresent@emeryweiner.org', timeOut=database.get_timestamp())
     print('\nDatabase:', database, '\nSuccess:', success)
 
     # Testing trying to edit a non-existent student
-    success = database.edit_student('zsamuels@emeryweiner.org', verifyCodeOut='dhbgvc', lockerNumOut=3, timeOut=pd.Timestamp.now())
+    success = database.edit_student('zsamuels@emeryweiner.org', timeOut=pd.Timestamp.now())
     print('\nDatabase:', database, '\nSuccess:', success)
 
     # Testing getting a student's data normally
@@ -137,7 +137,7 @@ class StudentDatabase(Database):
     # Initialize the database
     def __init__(self, filename):
         # Create a list with the data names
-        data_names = ['Verification Code In', 'Charger Number', 'Charger Type', 'Locker Number In', 'Timestamp In', 'Verification Code Out', 'Locker Number Out', 'Timestamp Out']
+        data_names = ['Charger Type', 'Timestamp In', 'Timestamp Out']
         
         # Store the index name in a data attribute
         indexName = 'Email'
@@ -147,13 +147,13 @@ class StudentDatabase(Database):
 
 
     # Define the add_student method to add student data to the student data dataframe
-    def add_student(self, email, verifyCodeIn=None, chargerNum=None, chargerType=None, lockerNumIn=None, timeIn=None, verifyCodeOut=None, lockerNumOut=None, timeOut=None):
+    def add_student(self, email, chargerType=None, timeIn=None, timeOut=None):
         # If the email is in the index values, then edit the student's data
         if email not in self.dataFrame.index:
 
             # Make a two dimensional list with all the values that should be added
             addValues = [keyValuePair for keyValuePair in zip(self.data_names,
-            (verifyCodeIn, chargerNum, chargerType, lockerNumIn, timeIn, verifyCodeOut, lockerNumOut, timeOut)) if keyValuePair[1] != None]
+            (chargerType, timeIn, timeOut)) if keyValuePair[1] != None]
 
             # For column, data in the add values, add the student's data              # I realize this is inefficient = pandas can sometimes be annoying
             for column, data in addValues:
@@ -174,13 +174,13 @@ class StudentDatabase(Database):
 
 
     # Define the edit_student method to edit student data in the student data dataframe
-    def edit_student(self, email, verifyCodeIn=None, chargerNum=None, chargerType=None, lockerNumIn=None, timeIn=None, verifyCodeOut=None, lockerNumOut=None, timeOut=None):
+    def edit_student(self, email, chargerType=None, timeIn=None, timeOut=None):
         # If the email is in the index values, then edit the student's data
         if email in self.dataFrame.index:
 
             # Make a two dimensional list with all the values that should be changed
             changeValues = [keyValuePair for keyValuePair in zip(self.data_names,
-            (verifyCodeIn, chargerNum, chargerType, lockerNumIn, timeIn, verifyCodeOut, lockerNumOut, timeOut)) if keyValuePair[1] != None]
+            (chargerType, timeIn, timeOut)) if keyValuePair[1] != None]
 
             # For column, data in the change values, update the student's data              # I realize this is inefficient = pandas can sometimes be annoying
             for column, data in changeValues:

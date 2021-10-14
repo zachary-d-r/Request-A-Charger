@@ -1,3 +1,10 @@
-Combine Database.py and Student.py
-Make conditions/rules on the email
+
+Info we need to store:
+    Charger type
+    Time charger was taken
+    Email
+
+We also need to be able to delete entrys
+Make the database look nicer in the console
+
 Add locker number and code to change it
