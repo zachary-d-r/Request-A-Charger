@@ -44,7 +44,15 @@ def getStudentEmail():
                 eel.clearTextBox()
                 eel.newVerificationCode()
                 verification.verified = False
-            else: eel.secondAnimation()
+            else: 
+                
+                # Check if the student is returning or not
+                if studentDatabase.check_existance(student.email) == False:
+                    print("New Student")
+                else:
+                    print("Returning student")
+
+                eel.secondAnimation()
 
 
 # Check to see if verification code from the user matches the one in the email

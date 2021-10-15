@@ -171,6 +171,13 @@ class StudentDatabase(Database):
 
             return False
 
+    # Check if student is in database or not
+    def check_existance(self, email):
+        # If the email is in the index values, then edit the student's data
+        if email not in self.dataFrame.index:
+            return False
+        else:
+            return True
 
     # Define the edit_student method to edit student data in the student data dataframe
     def edit_student(self, email, chargerType=None, timeIn=None):
