@@ -7,7 +7,7 @@ import Database
 
 student = Student.student()  # Create student object to store some info
 verification = Verification.verification('', 'requset-a-charger@computer4u.com')  # Create verification object to email the verification code
-studentDatabase = Database.StudentDatabase('studentData.dat')  # Create the student database
+studentDatabase = Database.StudentDatabase(r'Databases\studentData.dat')  # Create the student database
 
 
 eel.init('web')  # Initialize the app
