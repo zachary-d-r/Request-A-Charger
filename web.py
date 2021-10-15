@@ -5,9 +5,9 @@ import time
 import random
 import Database
 
-student = Student.student()  # Create student object to load file
-verification = Verification.verification('', 'requset-a-charger@computer4u.com')
-studentDatabase = Database.StudentDatabase('studentData.dat')
+student = Student.student()  # Create student object to store some info
+verification = Verification.verification('', 'requset-a-charger@computer4u.com')  # Create verification object to email the verification code
+studentDatabase = Database.StudentDatabase('studentData.dat')  # Create the student database
 
 
 eel.init('web')  # Initialize the app
@@ -20,25 +20,26 @@ def printReturn(n):
 @eel.expose
 def getStudentEmail():
     if verification.verified == False:
-        eel.getStudentEmailJS()()  # The () after the function gets the return values
-        student.setEmail(eel.getStudentEmailJS()())
-        eel.clearTextBox()
 
-        verification.toAddress = student.email
+        student.setEmail(eel.getStudentEmailJS()())  # Get the students email
+        eel.clearTextBox()  # Clear the text box
 
-        # Send email
-        sendVerification()
+        verification.toAddress = student.email  # Set the verification email to the students email
+        sendVerification()  # Send email
 
-        verification.verified = True
+        verification.verified = True  # A variable that proves the user has passed the first screen
 
     else:
+        # Show the last screen if the student has chosen their charger
         if student.charger != 0:
             eel.clearTextBox()
             eel.lastAnimation()
             verification.verified = False
             student.charger = 0
         else:
-            getVerified()
+            getVerified()  # Check if the student is verified
+
+            # If the student is not verified, bring them to the bigining of the program
             if verification.isVerified == False:
                 eel.clearTextBox()
                 eel.newVerificationCode()
@@ -46,7 +47,7 @@ def getStudentEmail():
             else: eel.secondAnimation()
 
 
-
+# Check to see if verification code from the user matches the one in the email
 @eel.expose
 def getVerified():
     verificationCode = str(eel.getVerificationCodeJS()()).upper()
@@ -56,10 +57,12 @@ def getVerified():
         return True
     else: return False
 
+# Get the email
 @eel.expose
 def getEmail():
     return student.email
 
+# Send the verification code
 @eel.expose
 def sendVerification():
     verification.getVerificationCode()
@@ -67,18 +70,21 @@ def sendVerification():
 
     print(f'Verification code: {verification.verificationCode} was sent to {student.email}')
 
+# Set the charger type to a number that indicates the type of charger the user took
 @eel.expose
 def setChargerType(num):
-    student.charger = num
-    print(f"{student.readCharger()} | Charger Num: {student.charger} \n\n")
+    student.charger = num  # Set the student charger to the correct number
+    print(f"{student.readCharger()} | Charger Num: {student.charger} \n\n")  # Print to console some data about the charger and its number
 
-    studentDatabase.add_student(student.email, student.charger, studentDatabase.get_timestamp())
-    studentDatabase.print_database()
+    studentDatabase.add_student(student.email, student.charger, studentDatabase.get_timestamp())  # Add the student to the database
+    studentDatabase.print_database()  # Print the database
 
+# Open the correct locker
 def openLocker():
     x = 0
     # Code to see what locker to open and open it
 
+# This is for animation purpouses
 @eel.expose()
 def stall():
     time.sleep(2)
