@@ -109,3 +109,16 @@ function lastAnimation() {
 
     document.getElementById('email-input').style.textTransform = 'none'
 }
+
+eel.expose(backAnimation)
+function backAnimation() {
+    document.getElementById('login-div').className = 'login-div-animate-back'
+    document.getElementById('buttons').className = 'show-button-animate-back'
+    document.getElementById('title').innerHTML = 'Please Put Your Charger In'
+    document.getElementById('subtitle').innerHTML = 'LOCKER NUMBER'
+    document.getElementById('submit-button').className = 'signin-button-animate-back'
+    document.getElementById('submit-button').innerHTML = 'Done'
+    document.getElementById('email').className = 'number-box-back'
+    document.getElementById('email-input').style.visibility = 'hidden'
+    eel.stall()
+}

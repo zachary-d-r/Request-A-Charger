@@ -9,7 +9,6 @@ student = Student.student()  # Create student object to store some info
 verification = Verification.verification('', 'requset-a-charger@computer4u.com')  # Create verification object to email the verification code
 studentDatabase = Database.StudentDatabase(r'Databases\studentData.dat')  # Create the student database
 
-
 eel.init('web')  # Initialize the app
 
 # Function to print a return value from js
@@ -31,7 +30,7 @@ def getStudentEmail():
 
     else:
         # Show the last screen if the student has chosen their charger
-        if student.charger != 0:
+        if student.charger != 0 or studentDatabase.check_existance(student.email) == True and student.animate == True:
             eel.clearTextBox()
             eel.lastAnimation()
             verification.verified = False
@@ -49,10 +48,11 @@ def getStudentEmail():
                 # Check if the student is returning or not
                 if studentDatabase.check_existance(student.email) == False:
                     print("New Student")
+                    eel.secondAnimation()
                 else:
                     print("Returning student")
-
-                eel.secondAnimation()
+                    eel.backAnimation()
+                    student.animate = True
 
 
 # Check to see if verification code from the user matches the one in the email

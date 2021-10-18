@@ -7,6 +7,7 @@ class student:
     # Information we need from the student
     email = ''
     charger = 0
+    animate = False
 
     def setEmail(self, inputEmail):
         self.email = f'{inputEmail}@emeryweiner.org'
