@@ -36,8 +36,11 @@ def getStudentEmail():
 
             if student.animate == True:
                 studentDatabase.delete(student.email)
-                print(f"deleted: {student.email}")
+                print(f"Deleted: {student.email}")
+
+                print('\n')
                 studentDatabase.print_database()
+                print('\n')
 
             verification.verified = False
             verification.isVerified = False
@@ -93,16 +96,20 @@ def sendVerification():
     verification.getVerificationCode()
     #verification.sendVerificationCode()
 
-    print(f'Verification code: {verification.verificationCode} was sent to {student.email}')
+    print(f'\nVerification code: {verification.verificationCode} was sent to {student.email}')
 
 # Set the charger type to a number that indicates the type of charger the user took
 @eel.expose
 def setChargerType(num):
     student.charger = num  # Set the student charger to the correct number
-    print(f"{student.readCharger()} | Charger Num: {student.charger} \n\n")  # Print to console some data about the charger and its number
+    print(f"{student.readCharger()} | Charger Num: {student.charger} \n")  # Print to console some data about the charger and its number
 
     studentDatabase.add_student(student.email, student.charger, studentDatabase.get_timestamp())  # Add the student to the database
+    print(f'Added {student.email}')
+
+    print('\n\n')
     studentDatabase.print_database()
+    print('\n')
 
 # Open the correct locker
 def openLocker():
