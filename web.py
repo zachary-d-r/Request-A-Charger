@@ -34,16 +34,19 @@ def getStudentEmail():
             eel.clearTextBox()
             eel.lastAnimation()
 
-            studentDatabase.delete(student.email)
+            if student.animate == True:
+                studentDatabase.delete(student.email)
+                print(f"deleted: {student.email}")
+                studentDatabase.print_database()
 
             verification.verified = False
             verification.isVerified = False
             verification.verificationCode = ''
 
             student.email = ''
-            student.charger = 0
             student.animate = False
             student.deleted = False
+            student.charger = 0
 
         else:
             getVerified()  # Check if the student is verified
@@ -65,23 +68,7 @@ def getStudentEmail():
                         print("Returning student")
                         eel.backAnimation()
                         student.animate = True
-                        student.charger = 0
 
-
-def reset():
-    print('reste 0')
-    eel.lastAnimation
-    print('reset')
-    verification.verified = False
-    verification.isVerified = False
-    verification.verificationCode = ''
-
-    student.email = ''
-    student.charger = 0
-    student.animate = False
-    student.deleted = False
-    print('reset2')
-    
 
 # Check to see if verification code from the user matches the one in the email
 @eel.expose
@@ -115,7 +102,7 @@ def setChargerType(num):
     print(f"{student.readCharger()} | Charger Num: {student.charger} \n\n")  # Print to console some data about the charger and its number
 
     studentDatabase.add_student(student.email, student.charger, studentDatabase.get_timestamp())  # Add the student to the database
-    studentDatabase.print_database()  # Print the database
+    studentDatabase.print_database()
 
 # Open the correct locker
 def openLocker():
@@ -130,6 +117,6 @@ def stall():
     eel.numberAnimate(str(lockerNumber))
 
 def getLockerNumber():
-    return student.charger
+    return random.randint(1, 10)
 
 eel.start('index.html')  # Start the app
