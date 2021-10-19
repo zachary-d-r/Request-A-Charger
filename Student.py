@@ -8,6 +8,7 @@ class student:
     email = ''
     charger = 0
     animate = False
+    deleted = False
 
     def setEmail(self, inputEmail):
         self.email = f'{inputEmail}@emeryweiner.org'

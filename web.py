@@ -33,27 +33,55 @@ def getStudentEmail():
         if student.charger != 0 or studentDatabase.check_existance(student.email) == True and student.animate == True:
             eel.clearTextBox()
             eel.lastAnimation()
+
+            studentDatabase.delete(student.email)
+
             verification.verified = False
+            verification.isVerified = False
+            verification.verificationCode = ''
+
+            student.email = ''
             student.charger = 0
+            student.animate = False
+            student.deleted = False
+
         else:
             getVerified()  # Check if the student is verified
 
             # If the student is not verified, bring them to the bigining of the program
             if verification.isVerified == False:
+                print('verification')
                 eel.clearTextBox()
                 eel.newVerificationCode()
                 verification.verified = False
             else: 
                 
                 # Check if the student is returning or not
-                if studentDatabase.check_existance(student.email) == False:
+                if studentDatabase.check_existance(student.email) == False and student.animate == False:
                     print("New Student")
                     eel.secondAnimation()
                 else:
-                    print("Returning student")
-                    eel.backAnimation()
-                    student.animate = True
+                    if student.animate == False:
+                        print("Returning student")
+                        eel.backAnimation()
+                        student.animate = True
+                        student.charger = 0
 
+
+def reset():
+    print('reste 0')
+    eel.lastAnimation
+    print('reset')
+    verification.verified = False
+    verification.isVerified = False
+    verification.verificationCode = ''
+
+    student.email = ''
+    student.charger = 0
+    student.animate = False
+    student.deleted = False
+    print('reset2')
+    
 
 # Check to see if verification code from the user matches the one in the email
 @eel.expose
@@ -63,7 +91,9 @@ def getVerified():
         verification.isVerified = True
         print("User verified")
         return True
-    else: return False
+    else:
+        print("Verification Failed") 
+        return False
 
 # Get the email
 @eel.expose

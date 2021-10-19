@@ -84,6 +84,10 @@ class Database():
 
         # Pickle the dataframe to its file
         self.data_pickle('w')
+
+    
+    def delete(self, studentEmail):
+        self.dataFrame.drop(str(studentEmail), inplace=True)
     
 
     # Define the data_pickle method to load from or dump to the data's pickle file
