@@ -103,8 +103,8 @@ function lastAnimation() {
     document.getElementById('email-input').style.visibility = 'visible'
     document.getElementById('email-input').placeholder = 'email'
     document.getElementById('locker-number').className = 'locker-number-hidden'
-    document.getElementById('subtitle').innerHTML = 'Request a Charger'
-    document.getElementById('title').innerHTML = 'PRE-PRE-ALPHA'
+    document.getElementById('subtitle').innerHTML = 'PRE-PRE-ALPHA'
+    document.getElementById('title').innerHTML = 'Request a Charger'
     document.getElementById('submit-button').innerHTML = 'Submit'
 
     document.getElementById('email-input').style.textTransform = 'none'
