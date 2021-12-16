@@ -1,21 +1,12 @@
-int solenoidPin = 9;
+const int solenoidpin = 13;    //defines solenoid @pin 3
 
-void setup() 
-{
-  pinMode(solenoidPin, OUTPUT);
+void setup() {            
+  pinMode(solenoidpin, OUTPUT); //sets solenoid as Output
 }
 
-void lock(int control){
-  if (control == 0) {digitalWrite(solenoidPin, LOW);}
-  else if (control == 1) {digitalWrite(solenoidPin, HIGH);}
-  
-  }
-
-void loop() 
-{
-  lock(1);
-  delay(1000);
-  
-  lock(0);
-  delay(1000);
+void loop() {
+  digitalWrite(solenoidpin, HIGH);  //sets the solenoid into HIGH state
+  delay(1000);            //duration 2 seconds
+  digitalWrite(solenoidpin, LOW); //sets the solenoid into LOW state
+  delay(1000);            //duration 2 seconds
 }

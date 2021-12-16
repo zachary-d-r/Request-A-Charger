@@ -94,7 +94,7 @@ def getEmail():
 @eel.expose
 def sendVerification():
     verification.getVerificationCode()
-    #verification.sendVerificationCode()
+    verification.sendVerificationCode()
 
     print(f'\nVerification code: {verification.verificationCode} was sent to {student.email}')
 
