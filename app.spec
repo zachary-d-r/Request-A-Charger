@@ -3,11 +3,13 @@
 
 block_cipher = None
 
-
+data_files = [
+    ( 'VerificationCode.docx', 'Verification-Files')]
+    
 a = Analysis(['app.py'],
              pathex=[],
              binaries=[],
-             datas=[('C:\\Python\\Python 3.9.5\\lib\\site-packages\\eel\\eel.js', 'eel'), ('web', 'web')],
+             datas=[('C:\\Users\\David\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\eel\\eel.js', 'eel'), ('web', 'web')],
              hiddenimports=['bottle_websocket'],
              hookspath=[],
              hooksconfig={},
@@ -21,20 +23,24 @@ pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 
 exe = EXE(pyz,
-          a.scripts,
-          a.binaries,
-          a.zipfiles,
-          a.datas,  
+          a.scripts, 
           [],
+          exclude_binaries=True,
           name='app',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          upx_exclude=[],
-          runtime_tmpdir=None,
           console=True,
           disable_windowed_traceback=False,
           target_arch=None,
           codesign_identity=None,
           entitlements_file=None )
+coll = COLLECT(exe,
+               a.binaries,
+               a.zipfiles,
+               a.datas, 
+               strip=False,
+               upx=True,
+               upx_exclude=[],
+               name='app')
