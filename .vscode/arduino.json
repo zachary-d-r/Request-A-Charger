@@ -1,0 +1,5 @@
+{
+    "board": "arduino:avr:uno",
+    "sketch": "Serial\\lockerControl\\lockerControl.ino",
+    "port": "COM3"
+}
