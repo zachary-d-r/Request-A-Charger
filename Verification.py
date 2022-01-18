@@ -79,7 +79,7 @@ class verification:
         except:
             raise Exception('Microsoft Word or Abiword is not installed')
         #convert pdf to jpg
-        images = convert_from_path(self.NEW_FILE_NAME+'.pdf', poppler_path=r'C:\Users\zacha\OneDrive\Desktop\poppler-0.68.0_x86\poppler-0.68.0\bin')
+        images = convert_from_path(self.NEW_FILE_NAME+'.pdf', poppler_path=r'poppler-0.68.0\bin') #C:\Users\zacha\OneDrive\Desktop\poppler-0.68.0_x86\   #Change to work with computer using: https://stackoverflow.com/questions/18381713/how-to-install-poppler-on-windows
         for i in range(len(images)):
             images[i].save(self.NEW_FILE_NAME+'.jpg', 'JPEG')
 
