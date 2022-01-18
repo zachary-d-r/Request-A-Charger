@@ -126,4 +126,4 @@ def stall():
 def getLockerNumber():
     return random.randint(1, 10)
 
-eel.start('index.html')  # Start the app
+eel.start('index.html', mode='chrome', cmdline_args=['--kiosk'])  # Start the app
