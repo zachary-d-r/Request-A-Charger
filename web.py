@@ -135,20 +135,3 @@ def getLockerNumber():
     return random.randint(1, 10)
 
 eel.start('index.html', mode='chrome', cmdline_args=['--kiosk'])  # Start the app
-
-"""
-For pyinstaller:
-
-One Directory (Stored Locally):
-python -m eel web.py web --name Request_A_Charger ^
-    --add-data Verification-Files;Verification-Files ^
-    --add-data poppler-0.68.0;poppler-0.68.0 ^
-    --add-data Databases;Databases
-
-One File (Stored in Memory, meaning database gets deleted):
-python -m eel web.py web --name Request_A_Charger_One_File ^
-    --onefile ^
-    --add-data Verification-Files;Verification-Files ^
-    --add-data poppler-0.68.0;poppler-0.68.0 ^
-    --add-data Databases;Databases
-"""
