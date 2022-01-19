@@ -5,6 +5,14 @@ import time
 import random
 import Database
 
+# Import the required functions for onefile mode
+from os import chdir
+import sys
+
+# If the directory should be the onefile directory, then change the directory to the onefile directory
+if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+    chdir(sys._MEIPASS)
+
 student = Student.student()  # Create student object to store some info
 verification = Verification.verification('', 'requset-a-charger@computer4u.com')  # Create verification object to email the verification code
 studentDatabase = Database.StudentDatabase(r'Databases\studentData.dat')  # Create the student database
@@ -127,3 +135,20 @@ def getLockerNumber():
     return random.randint(1, 10)
 
 eel.start('index.html', mode='chrome', cmdline_args=['--kiosk'])  # Start the app
+
+"""
+For pyinstaller:
+
+One Directory (Stored Locally):
+python -m eel web.py web --name Request_A_Charger ^
+    --add-data Verification-Files;Verification-Files ^
+    --add-data poppler-0.68.0;poppler-0.68.0 ^
+    --add-data Databases;Databases
+
+One File (Stored in Memory, meaning database gets deleted):
+python -m eel web.py web --name Request_A_Charger_One_File ^
+    --onefile ^
+    --add-data Verification-Files;Verification-Files ^
+    --add-data poppler-0.68.0;poppler-0.68.0 ^
+    --add-data Databases;Databases
+"""
