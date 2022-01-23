@@ -176,11 +176,9 @@ class StudentDatabase(Database):
 
     # Check if student is in database or not
     def check_existence(self, email):
-        # If the email is in the index values, then edit the student's data
-        if email not in self.dataFrame.index:
-            return False
-        else:
-            return True
+        # If the email is in the database, then return True, else return False
+        if email in self.dataFrame.index: return True
+        else: return False
 
     # Define the edit_student method to edit student data in the student data dataframe
     def edit_student(self, email, chargerType=None, timeIn=None):
@@ -228,7 +226,7 @@ class StudentDatabase(Database):
 
             return False
 
-        # To print the database and make it look nice in the console
+    # To print the database and make it look nice in the console
     def print_database(self):
         with pd.option_context('display.max_rows', None,
                        'display.max_columns', None,
@@ -276,8 +274,10 @@ class StudentDatabase(Database):
         return None
 
 
+"""
 # When main is called
 if __name__ == '__main__':
 
     # Call the demo function
     demo()
+"""

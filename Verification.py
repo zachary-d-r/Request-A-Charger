@@ -120,13 +120,16 @@ class verification:
         image = MIMEImage(img_data, name=os.path.basename(self.NEW_FILE_NAME+'.jpg'))
         msg.attach(image)
             
+        
+        #TODO uncomment so it sends the message
+        """
         server = smtplib.SMTP('smtp.mail.com', 587) # Logging into an outlook server (this is only for the sender. Meaning the sender has to be mail.com. You can send an email to any domain)
-
         server.starttls()
         server.login(self.fromAddress, self.password) # Login to the email
         server.send_message(msg) # Send message
 
         server.quit() # Quitting the sever
+        """
 
 
     def sendVerificationCode(self):

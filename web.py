@@ -43,7 +43,7 @@ def getStudentEmail():
             eel.lastAnimation()
 
             if student.animate == True:
-                studentDatabase.delete(student.email)
+                studentDatabase.remove_student(student.email)
                 print(f"Deleted: {student.email}")
 
                 print('\n')
@@ -114,7 +114,6 @@ def setChargerType(num):
 
     studentDatabase.add_student(student.email, student.charger, studentDatabase.get_timestamp())  # Add the student to the database
     print(f'Added {student.email}')
-
     print('\n\n')
     studentDatabase.print_database()
     print('\n')
