@@ -15,7 +15,7 @@ from pdf2image import convert_from_path #pip install pdf2image
 class verification:
     
     MESSAGE = ''  # This is your message
-    SUBJECT = 'Varification Number'  # This is your subject
+    SUBJECT = 'Verification Number'  # This is your subject
 
     codeNums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'F', 'L', 'Y', 'E', 'P', 'X', 'U', 'W', 'R', 'G', 'S', 'V', 'Z']  # Characters that can be in a verification code
     verificationCode = ''  # The code
@@ -37,7 +37,7 @@ class verification:
         self.SUBJECT  = 'Verification Code'
 
         # Content for file
-        self.TEMPLEATE = 'Verification-Files/Templeate.docx' # File name for the Templeate docx
+        self.TEMPLEATE = 'Verification-Files/Template.docx' # File name for the Template docx
         self.NEW_FILE_NAME = 'Verification-Files/VerificationCode' # The new name for the file once its has been edited
         self.fontSize = 28 # Font size for verification code
         self.defaultFontSize = 12 # Font size for deafult text
@@ -79,7 +79,7 @@ class verification:
         except:
             raise Exception('Microsoft Word or Abiword is not installed')
         #convert pdf to jpg
-        images = convert_from_path(self.NEW_FILE_NAME+'.pdf', poppler_path=r'poppler-0.68.0\bin') #C:\Users\zacha\OneDrive\Desktop\poppler-0.68.0_x86\   #Change to work with computer using: https://stackoverflow.com/questions/18381713/how-to-install-poppler-on-windows
+        images = convert_from_path(self.NEW_FILE_NAME+'.pdf', poppler_path=r'poppler-0.68.0\bin') #C:\Users\zacha\OneDrive\Desktop\poppler-0.68.0_x86\   #Change to work with computer using: https://stackoverflow.com/questions/18381713/how-to-install-poppler-on-windows #Don't need to specify location for linux
         for i in range(len(images)):
             images[i].save(self.NEW_FILE_NAME+'.jpg', 'JPEG')
 
