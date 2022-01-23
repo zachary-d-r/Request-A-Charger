@@ -14,7 +14,7 @@ if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     chdir(sys._MEIPASS)
 
 student = Student.student()  # Create student object to store some info
-verification = Verification.verification('', 'requset-a-charger@computer4u.com')  # Create verification object to email the verification code
+verification = Verification.verification('', 'requestacharger@gmail.com', 'Kirby321%')  # Create verification object to email the verification code 'requset-a-charger@computer4u.com'
 studentDatabase = Database.StudentDatabase(r'Databases\studentData.dat')  # Create the student database
 
 eel.init('web')  # Initialize the app

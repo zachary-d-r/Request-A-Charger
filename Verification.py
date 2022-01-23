@@ -21,14 +21,15 @@ class verification:
     verificationCode = ''  # The code
     toAddress = ''  # Who we are sending the email to
     fromAddress = ''  # Who is sending the email
-    password = 'SC59UB8LY'  # Password to login to smtp
+    #password = 'SC59UB8LY'  # Password to login to smtp TODO testing uncomment
     verified = False
     isVerified = False
 
     # Initialize the object by setting the correct email addresses
-    def __init__(self, to, fromEmail):
+    def __init__(self, to, fromEmail, password):
         self.toAddress = to
         self.fromAddress = fromEmail
+        self.password = password
         self.verified = False
 
         self.MESSAGE = """Hi, 
@@ -104,9 +105,12 @@ class verification:
 
         msg = MIMEMultipart()  # Setting up an email message
 
+        #TODO testing uncomment
+        """
         # If the user did not want to enter the password in the function parameters then they can enter it as user input
         if self.password == None:
             self.password = input('Please enter your password\n')
+        """
 
 
         # Subject, from, and to (information for email)
@@ -119,17 +123,12 @@ class verification:
         msg.attach(text)
         image = MIMEImage(img_data, name=os.path.basename(self.NEW_FILE_NAME+'.jpg'))
         msg.attach(image)
-            
-        
-        #TODO uncomment so it sends the message
-        """
-        server = smtplib.SMTP('smtp.mail.com', 587) # Logging into an outlook server (this is only for the sender. Meaning the sender has to be mail.com. You can send an email to any domain)
-        server.starttls()
-        server.login(self.fromAddress, self.password) # Login to the email
-        server.send_message(msg) # Send message
 
-        server.quit() # Quitting the sever
-        """
+        # Logging into an outlook server (this is only for the sender. Meaning the sender has to be mail.com. You can send an email to any domain)
+        with smtplib.SMTP('smtp.mail.com', 587) as server:
+            server.starttls()
+            server.login(self.fromAddress, self.password) # Login to the email
+            server.send_message(msg) # Send message
 
 
     def sendVerificationCode(self):
