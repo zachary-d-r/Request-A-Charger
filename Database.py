@@ -175,7 +175,7 @@ class StudentDatabase(Database):
             return False
 
     # Check if student is in database or not
-    def check_existance(self, email):
+    def check_existence(self, email):
         # If the email is in the index values, then edit the student's data
         if email not in self.dataFrame.index:
             return False

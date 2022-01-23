@@ -34,10 +34,10 @@ class verification:
         self.MESSAGE = """Hi, 
         You recently requested to rent a charger for a device.
         Click the photo to view the instructions"""
-        self.SUBJECT  = 'Verification Code'
+        self.SUBJECT  = 'Verification Code:{code}'
 
         # Content for file
-        self.TEMPLEATE = 'Verification-Files/Template.docx' # File name for the Template docx
+        self.TEMPLATE = 'Verification-Files/Template.docx' # File name for the Template docx
         self.NEW_FILE_NAME = 'Verification-Files/VerificationCode' # The new name for the file once its has been edited
         self.fontSize = 28 # Font size for verification code
         self.defaultFontSize = 12 # Font size for deafult text
@@ -48,20 +48,20 @@ class verification:
         self.verificationCode = ''  # Reset the verification code
 
         # Add a random character from the list of characters above
-        for i in range(5):
+        for _ in range(5):
             self.verificationCode += self.codeNums[random.randint(0, len(self.codeNums)-1)]
 
     
-    # Edit the templeate with the verification code
-    def EditTempleate(self):
-        doc = Document(self.TEMPLEATE)
-        # Looking for name in the templeate to replace it
+    # Edit the template with the verification code
+    def EditTemplate(self):
+        doc = Document(self.TEMPLATE)
+        # Looking for name in the template to replace it
         for p in doc.paragraphs:
             if 'name' in p.text:
                 p.text = '' # Clearing the txt
                 p.add_run('Hello {},'.format(self.toAddress)).font.size = Pt(self.defaultFontSize) # Setting the text with a font size
         
-        # Looking for verification code in the templeate to replace it
+        # Looking for verification code in the template to replace it
         for p in doc.paragraphs:
             if 'Your Verification Code' in p.text:
                 p.text = '' # Clearing the text
@@ -78,10 +78,21 @@ class verification:
                 os.system('abiword --to=pdf filetoconvert.doc') #if we are running this on a raspberry pi, then use abiword. abiword needs to be installed though
         except:
             raise Exception('Microsoft Word or Abiword is not installed')
+
         #convert pdf to jpg
-        images = convert_from_path(self.NEW_FILE_NAME+'.pdf', poppler_path=r'poppler-0.68.0\bin') #C:\Users\zacha\OneDrive\Desktop\poppler-0.68.0_x86\   #Change to work with computer using: https://stackoverflow.com/questions/18381713/how-to-install-poppler-on-windows #Don't need to specify location for linux
-        for i in range(len(images)):
-            images[i].save(self.NEW_FILE_NAME+'.jpg', 'JPEG')
+
+        # Try to convert using poppler from root
+        try:
+            images = convert_from_path(self.NEW_FILE_NAME+'.pdf')
+
+        # Catch an exception if poppler was not found in root, and use the downloaded version
+        except:
+            images = convert_from_path(self.NEW_FILE_NAME+'.pdf', poppler_path=r'poppler-0.68.0\bin') #C:\Users\zacha\OneDrive\Desktop\poppler-0.68.0_x86\   #Change to work with computer using: https://stackoverflow.com/questions/18381713/how-to-install-poppler-on-windows #Don't need to specify location for linux
+        
+        # Save the image
+        finally:
+            for i in images:
+                i.save(self.NEW_FILE_NAME+'.jpg', 'JPEG')
 
 
     # Email the verification code to the client
@@ -99,11 +110,11 @@ class verification:
 
 
         # Subject, from, and to (information for email)
-        msg['Subject'] = self.SUBJECT
+        msg['Subject'] = self.SUBJECT.format(code=self.verificationCode)
         msg['From'] = self.fromAddress
         msg['To'] = self.toAddress
 
-        # Attaching the text an image to the email   
+        # Attaching the text and image to the email
         text = MIMEText(self.MESSAGE)
         msg.attach(text)
         image = MIMEImage(img_data, name=os.path.basename(self.NEW_FILE_NAME+'.jpg'))
@@ -119,6 +130,6 @@ class verification:
 
 
     def sendVerificationCode(self):
-        self.EditTempleate()
+        self.EditTemplate()
         self.ConvertDoc()
         self.sendEmail()

@@ -4,7 +4,7 @@ Info we need to store:
     Time charger was taken
     Email
 
-We also need to be able to delete entrys
+We also need to be able to delete entries
 Make the database look nicer in the console
 
 Add locker number and code to change it

@@ -38,7 +38,7 @@ def getStudentEmail():
 
     else:
         # Show the last screen if the student has chosen their charger
-        if student.charger != 0 or studentDatabase.check_existance(student.email) == True and student.animate == True:
+        if student.charger != 0 or studentDatabase.check_existence(student.email) == True and student.animate == True:
             eel.clearTextBox()
             eel.lastAnimation()
 
@@ -62,7 +62,7 @@ def getStudentEmail():
         else:
             getVerified()  # Check if the student is verified
 
-            # If the student is not verified, bring them to the bigining of the program
+            # If the student is not verified, bring them to the beginning of the program
             if verification.isVerified == False:
                 print('verification')
                 eel.clearTextBox()
@@ -71,7 +71,7 @@ def getStudentEmail():
             else: 
                 
                 # Check if the student is returning or not
-                if studentDatabase.check_existance(student.email) == False and student.animate == False:
+                if studentDatabase.check_existence(student.email) == False and student.animate == False:
                     print("New Student")
                     eel.secondAnimation()
                 else:
@@ -124,7 +124,7 @@ def openLocker():
     x = 0
     # Code to see what locker to open and open it
 
-# This is for animation purpouses
+# This is for animation purposes
 @eel.expose()
 def stall():
     time.sleep(2)
