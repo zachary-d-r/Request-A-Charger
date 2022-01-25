@@ -21,7 +21,7 @@ class verification:
     verificationCode = ''  # The code
     toAddress = ''  # Who we are sending the email to
     fromAddress = ''  # Who is sending the email
-    #password = 'SC59UB8LY'  # Password to login to smtp TODO testing uncomment
+    #password = 'SC59UB8LY'  # Password to login to smtp TODO remove
     verified = False
     isVerified = False
 
@@ -34,8 +34,11 @@ class verification:
 
         self.MESSAGE = """Hi, 
         You recently requested to rent a charger for a device.
-        Click the photo to view the instructions"""
-        self.SUBJECT  = 'Verification Code:{code}'
+        Click the photo to view the instructions.
+
+        Sincerely,
+        The Upper School Robotics Team"""
+        self.SUBJECT  = 'Verification Code: {code}'
 
         # Content for file
         self.TEMPLATE = 'Verification-Files/Template.docx' # File name for the Template docx
@@ -105,7 +108,7 @@ class verification:
 
         msg = MIMEMultipart()  # Setting up an email message
 
-        #TODO testing uncomment
+        #TODO remove
         """
         # If the user did not want to enter the password in the function parameters then they can enter it as user input
         if self.password == None:
@@ -125,7 +128,8 @@ class verification:
         msg.attach(image)
 
         # Logging into an outlook server (this is only for the sender. Meaning the sender has to be mail.com. You can send an email to any domain)
-        with smtplib.SMTP('smtp.mail.com', 587) as server:
+        with smtplib.SMTP('smtp.gmail.com', 587) as server:
+            server.ehlo()   # Fixed the problem
             server.starttls()
             server.login(self.fromAddress, self.password) # Login to the email
             server.send_message(msg) # Send message
