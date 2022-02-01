@@ -1,5 +1,8 @@
 
 document.getElementById('submit-button').addEventListener("click", ()=>{eel.getStudentEmail()}, false)
+document.getElementById('body').addEventListener('keydown', function (e) {
+    if (e.key === "Enter") { eel.getStudentEmail() }
+})
 document.getElementById('button-1').addEventListener("click", ()=>{chargerSelected(1)}, false)
 document.getElementById('button-2').addEventListener("click", ()=>{chargerSelected(2)}, false)
 document.getElementById('button-3').addEventListener("click", ()=>{chargerSelected(3)}, false)
