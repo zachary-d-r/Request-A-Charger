@@ -5,7 +5,7 @@ A school Robotics project where students can select a charger from a screen and 
 ## Dependencies:
 In order to run this code, you will need to install the following libraries:
 
-    pip install Eel 
+    pip install eel 
 
     pip install python-docx
     pip install docx2pdf

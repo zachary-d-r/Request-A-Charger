@@ -15,8 +15,11 @@ class student:
 
     # Change the charger to a human readable format
     def readCharger(self):
-        if self.charger == 0: return 'User has not chosen a charger'
-        elif self.charger == 1: return 'User chose: USB-C'
-        elif self.charger == 2: return 'User chose: MagSafe 2'
-        elif self.charger == 3: return 'User chose: Lightning'
-        elif self.charger == 4: return 'User chose: Windows Surface'
+        charger_options = ('User has not chosen a charger', 'USB-C', 'MagSafe 2', 'Lightning', 'Windows Surface')
+
+        # If the user did not return a charger, then return the first option
+        if self.charger == 0: return charger_options[0]
+
+        # Else, return a formatted string for the charger they chose
+        else:
+            return f'User chose: {charger_options[self.charger]}'

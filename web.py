@@ -14,7 +14,7 @@ if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     chdir(sys._MEIPASS)
 
 student = Student.student()  # Create student object to store some info
-verification = Verification.verification('', 'requset-a-charger@computer4u.com')  # Create verification object to email the verification code
+verification = Verification.verification('', 'requestacharger@gmail.com', 'Kirby321%') #TODO remove('', 'requset-a-charger@computer4u.com', 'SC59UB8LY') # Create verification object to email the verification code 'requset-a-charger@computer4u.com'
 studentDatabase = Database.StudentDatabase(r'Databases\studentData.dat')  # Create the student database
 
 eel.init('web')  # Initialize the app
@@ -38,12 +38,12 @@ def getStudentEmail():
 
     else:
         # Show the last screen if the student has chosen their charger
-        if student.charger != 0 or studentDatabase.check_existance(student.email) == True and student.animate == True:
+        if student.charger != 0 or studentDatabase.check_existence(student.email) == True and student.animate == True:
             eel.clearTextBox()
             eel.lastAnimation()
 
             if student.animate == True:
-                studentDatabase.delete(student.email)
+                studentDatabase.remove_student(student.email)
                 print(f"Deleted: {student.email}")
 
                 print('\n')
@@ -62,7 +62,7 @@ def getStudentEmail():
         else:
             getVerified()  # Check if the student is verified
 
-            # If the student is not verified, bring them to the bigining of the program
+            # If the student is not verified, bring them to the beginning of the program
             if verification.isVerified == False:
                 print('verification')
                 eel.clearTextBox()
@@ -71,7 +71,7 @@ def getStudentEmail():
             else: 
                 
                 # Check if the student is returning or not
-                if studentDatabase.check_existance(student.email) == False and student.animate == False:
+                if studentDatabase.check_existence(student.email) == False and student.animate == False:
                     print("New Student")
                     eel.secondAnimation()
                 else:
@@ -114,7 +114,6 @@ def setChargerType(num):
 
     studentDatabase.add_student(student.email, student.charger, studentDatabase.get_timestamp())  # Add the student to the database
     print(f'Added {student.email}')
-
     print('\n\n')
     studentDatabase.print_database()
     print('\n')
@@ -124,7 +123,7 @@ def openLocker():
     x = 0
     # Code to see what locker to open and open it
 
-# This is for animation purpouses
+# This is for animation purposes
 @eel.expose()
 def stall():
     time.sleep(2)

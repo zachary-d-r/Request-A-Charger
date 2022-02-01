@@ -72,6 +72,7 @@ function firstAnimation() {
     document.getElementById('title').innerHTML = 'Check Your Email'
     document.getElementById('email-input').style.textTransform = 'uppercase'
     document.getElementById('email-input').placeholder = 'Verification Code'
+    document.getElementById('email-input').focus()
 }
 
 function chargerSelected(num) {
@@ -93,6 +94,7 @@ function newVerificationCode() {
     document.getElementById('domain').className = 'validation-domain'
 
     document.getElementById('email-input').style.textTransform = 'none'
+    document.getElementById('email-input').focus()
 }
 
 eel.expose(lastAnimation)
@@ -111,6 +113,7 @@ function lastAnimation() {
     document.getElementById('submit-button').innerHTML = 'Submit'
 
     document.getElementById('email-input').style.textTransform = 'none'
+    document.getElementById('email-input').focus()
 }
 
 eel.expose(backAnimation)
