@@ -43,7 +43,7 @@ def demo():
     print('\nNot Supported Conversion Student Data:', notSupportedData)
 
 
-# Define the database class as the base class
+# Define the Database class as the base class
 class Database():
     # Initialize the database
     def __init__(self, filename, data_names, indexName):
@@ -133,13 +133,21 @@ class Database():
         # Return the dataframe as a string
         return str(self.dataFrame)
 
+    # To print the database and make it look nice in the console
+    def print_database(self):
+        with pd.option_context('display.max_rows', None,
+                       'display.max_columns', None,
+                       'display.precision', 3,
+                       ):
+            print(self.dataFrame)
+
 
 # Define the Student Database class to work with the student data
 class StudentDatabase(Database):
     # Initialize the database
     def __init__(self, filename):
         # Create a list with the data names
-        data_names = ['Charger Type', 'Timestamp In',]
+        data_names = ['Charger Type', 'Timestamp In']
         
         # Store the index name in a data attribute
         indexName = 'Email'
@@ -225,14 +233,6 @@ class StudentDatabase(Database):
         else:
 
             return False
-
-    # To print the database and make it look nice in the console
-    def print_database(self):
-        with pd.option_context('display.max_rows', None,
-                       'display.max_columns', None,
-                       'display.precision', 3,
-                       ):
-            print(self.dataFrame)
         
 
     # Define the get_student method to get student data from the student data dataframe
@@ -273,6 +273,52 @@ class StudentDatabase(Database):
         # Return None if something did not work
         return None
 
+
+# Define the Locker Database class to work with the locker data
+class LockerDatabase(Database):
+    # Initialize the database
+    def __init__(self, filename):
+        """
+        Locker Key:
+        0: no charger
+        1: lightning
+        2: magsafe
+        3: surface
+        4: usb-c
+        """
+        # Create a list with the data names
+        data_names = ['Charger Type']
+        
+        # Store the index name in a data attribute
+        indexName = 'Locker Number'
+
+        # Intialize the base class with the student settings
+        super().__init__(filename, data_names, indexName)
+    
+    # Define the setup_lockers method to set up the dataframe with the lockers' starting charger data
+    def setup_lockers(self, locker_dictionary:dict):
+        """
+        Setup the initial charger data for the lockers
+        """
+        # For lockerNum in the keys of the dictionary, add the locker data              # I realize this is inefficient = pandas can sometimes be annoying
+        for lockerNum in locker_dictionary:
+
+            # Add the locker data
+            self.dataFrame.loc[lockerNum, 'Charger Type'] = locker_dictionary[lockerNum]
+        
+        # Pickle the dataframe to its file
+        self.data_pickle('w')
+    
+    # Define the edit_locker method to edit the charger type of a locker
+    def edit_locker(self, lockerNumber:int, chargerType:int):
+        """
+        Edit the charger type of a locker (0: no charger, 1: lightning, 2: magsafe, 3: surface, 4: usb-c)
+        """
+        # Edit the locker data
+        self.dataFrame.loc[lockerNumber, 'Charger Type'] = chargerType
+        
+        # Pickle the dataframe to its file
+        self.data_pickle('w')
 
 """
 # When main is called
