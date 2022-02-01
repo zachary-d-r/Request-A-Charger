@@ -110,9 +110,9 @@ class verification:
         msg.attach(image)
             
         server = smtplib.SMTP('smtp.mail.com', 587) # Logging into an outlook server (this is only for the sender. Meaning the sender has to be mail.com. You can send an email to any domain)
-
+        server.ehlo()
         server.starttls()
-        server.login(self.fromAddress, self.password) # Login to the email
+        server.login('requset-a-charger@computer4u.com', 'SC59UB8LY') # Login to the email
         server.send_message(msg) # Send message
 
         server.quit() # Quitting the sever
