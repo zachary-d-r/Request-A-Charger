@@ -132,6 +132,6 @@ def stall():
     eel.numberAnimate(str(lockerNumber))
 
 def getLockerNumber():
-    return random.randint(1, 10)
+    return lockerDatabase.find_locker(student.charger)
 
 eel.start('index.html', mode='chrome', cmdline_args=['--kiosk'])  # Start the app
