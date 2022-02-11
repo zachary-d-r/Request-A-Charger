@@ -337,10 +337,12 @@ class LockerDatabase(Database):
         # Else, return 0 if no chargers of that type were found
         return 0
 
-"""
-# When main is called
-if __name__ == '__main__':
 
-    # Call the demo function
-    demo()
+
+"""
+print("D!")
+lockerDatabase = LockerDatabase(r'Databases\lockerData.dat') # Create the locker database
+print("De!")
+lockerDatabase.setup_lockers({1:0,2:0,3:1,4:1,5:2,6:2,7:3,8:3,9:4,10:4,11:0})
+print("Done!")
 """
