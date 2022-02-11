@@ -4,6 +4,7 @@ Database Code
 David Anapolsky
 """
 # Import the pandas module to create tables to manage the data
+from traceback import print_tb
 from numpy import character
 import pandas as pd
 
@@ -332,6 +333,9 @@ class LockerDatabase(Database):
         
         # Iterate through the rows to find a locker with the requested charger
         for index, row in self.dataFrame.iterrows():
+            print('1.index:', index)
+            print(f'2. {chargerType}')
+            print('3.', row['Charger Type'])
             if row['Charger Type'] == chargerType:
                 self.edit_locker(index, chargerType)
                 return index

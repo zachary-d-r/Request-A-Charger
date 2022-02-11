@@ -102,11 +102,14 @@ class verification:
     # Email the verification code to the client
     def sendEmail(self):
 
+        """
+
         # Opening the image file to send
         with open(self.NEW_FILE_NAME+'.jpg', 'rb') as f:
             img_data = f.read()
-
+        """
         msg = MIMEMultipart()  # Setting up an email message
+        
 
         #TODO remove
         """
@@ -124,8 +127,8 @@ class verification:
         # Attaching the text and image to the email
         text = MIMEText(self.MESSAGE)
         msg.attach(text)
-        image = MIMEImage(img_data, name=os.path.basename(self.NEW_FILE_NAME+'.jpg'))
-        msg.attach(image)
+        #image = MIMEImage(img_data, name=os.path.basename(self.NEW_FILE_NAME+'.jpg'))
+        #msg.attach(image)
 
         # Logging into an outlook server (this is only for the sender. Meaning the sender has to be mail.com. You can send an email to any domain)
         with smtplib.SMTP('smtp.gmail.com', 587) as server:
@@ -136,6 +139,6 @@ class verification:
 
 
     def sendVerificationCode(self):
-        self.EditTemplate()
-        self.ConvertDoc()
+        #self.EditTemplate()
+        #self.ConvertDoc()
         self.sendEmail()

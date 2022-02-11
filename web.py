@@ -113,12 +113,6 @@ def setChargerType(num):
     student.charger = num  # Set the student charger to the correct number
     print(f"{student.readCharger()} | Charger Num: {student.charger} \n")  # Print to console some data about the charger and its number
 
-    studentDatabase.add_student(student.email, student.charger, studentDatabase.get_timestamp())  # Add the student to the database
-    print(f'Added {student.email}')
-    print('\n\n')
-    studentDatabase.print_database()
-    print('\n')
-
 # Open the correct locker
 def openLocker():
     x = 0
@@ -132,11 +126,20 @@ def stall():
     eel.numberAnimate(str(lockerNumber))
 
 def getLockerNumber():
-    if not studentDatabase.check_existence(student.email):
+    if studentDatabase.check_existence(student.email) == False:
         print('Find locker for new student')
+        print('ABC:', student.charger)
+
+        studentDatabase.add_student(student.email, student.charger, studentDatabase.get_timestamp())  # Add the student to the database
+        print(f'Added {student.email}')
+        print('\n\n')
+        studentDatabase.print_database()
+        print('\n')
+        
         return lockerDatabase.find_locker(student.charger)
     else:
         print('Find empty locker')
         return lockerDatabase.find_locker(0)
+        
 
 eel.start('index.html', mode='chrome', cmdline_args=['--kiosk'])  # Start the app

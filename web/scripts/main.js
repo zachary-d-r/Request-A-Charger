@@ -76,8 +76,8 @@ function firstAnimation() {
 }
 
 function chargerSelected(num) {
-    thirdAnimation()
     eel.setChargerType(num)
+    thirdAnimation()
 }
 
 eel.expose(newVerificationCode) 
