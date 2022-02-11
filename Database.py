@@ -312,13 +312,30 @@ class LockerDatabase(Database):
     # Define the edit_locker method to edit the charger type of a locker
     def edit_locker(self, lockerNumber:int, chargerType:int):
         """
-        Edit the charger type of a locker (0: no charger, 1: lightning, 2: magsafe, 3: surface, 4: usb-c)
+        Edit the charger type of a locker
+        (0: no charger, 1: lightning, 2: magsafe, 3: surface, 4: usb-c)
         """
         # Edit the locker data
         self.dataFrame.loc[lockerNumber, 'Charger Type'] = chargerType
         
         # Pickle the dataframe to its file
         self.data_pickle('w')
+
+    # Define the find_locker method to find a locker with the requested charger (or lack there of)
+    def find_locker(self, chargerType:int):
+        """
+        Find a charger in the locker database
+        (0: no charger, 1: lightning, 2: magsafe, 3: surface, 4: usb-c)
+        Return 0 if there is no charger available of that type
+        """
+        
+        # Iterate through the rows to find a locker with the requested charger
+        for index, row in self.dataFrame.iterrows():
+            if row == chargerType:
+                return index
+        
+        # Else, return 0 if no chargers of that type were found
+        return 0
 
 """
 # When main is called
