@@ -132,6 +132,11 @@ def stall():
     eel.numberAnimate(str(lockerNumber))
 
 def getLockerNumber():
-    return lockerDatabase.find_locker(student.charger)
+    if not studentDatabase.check_existence(student.email):
+        print('Find locker for new student')
+        return lockerDatabase.find_locker(student.charger)
+    else:
+        print('Find empty locker')
+        return lockerDatabase.find_locker(0)
 
 eel.start('index.html', mode='chrome', cmdline_args=['--kiosk'])  # Start the app
