@@ -32,7 +32,7 @@ class verification:
         self.password = password
         self.verified = False
 
-        self.MESSAGE = """Hi, 
+        self.MESSAGE = f"""Hi {self.toAddress}, 
         You recently requested to rent a charger for a device.
         Click the photo to view the instructions.
 
@@ -41,6 +41,7 @@ class verification:
         self.SUBJECT  = 'Verification Code: {code}'
 
         # Content for file
+        self.DIRECTORY = 'Verification-Files' # Folder name that stores the verification files
         self.TEMPLATE = 'Verification-Files/Template.docx' # File name for the Template docx
         self.NEW_FILE_NAME = 'Verification-Files/VerificationCode' # The new name for the file once its has been edited
         self.fontSize = 28 # Font size for verification code
@@ -75,39 +76,50 @@ class verification:
     
     # Covert the doc to pdf then to img
     def ConvertDoc(self):
+        # Convert docx to pdf
         try:
             try:
                 convert(self.NEW_FILE_NAME+'.docx') #convert docx to pdf, only works if microsoft word is installed
+                print('Word')
+
             except:
-                os.system('abiword --to=pdf filetoconvert.doc') #if we are running this on a raspberry pi, then use abiword. abiword needs to be installed though
+                os.system(f'libreoffice --convert-to pdf {self.NEW_FILE_NAME}.docx --outdir {self.DIRECTORY}') #convert using libreoffice on linux, should also work on raspberry pi
+                print('Libreoffice')
+
+                """
+                TODO remove since abiword does not format the background image properly
+                os.system(f'abiword --to=pdf {self.NEW_FILE_NAME}.docx') #if we are running this on a raspberry pi, then use abiword. abiword needs to be installed though
+                """
         except:
-            raise Exception('Microsoft Word or Abiword is not installed')
+            raise Exception('Microsoft Word or Libreoffice is not installed')
 
-        #convert pdf to jpg
-
-        # Try to convert using poppler from root
+        # Convert pdf to jpg
         try:
-            images = convert_from_path(self.NEW_FILE_NAME+'.pdf')
+            # Try to convert using poppler from root
+            try:
+                images = convert_from_path(self.NEW_FILE_NAME+'.pdf')
 
-        # Catch an exception if poppler was not found in root, and use the downloaded version
+            # Catch an exception if poppler was not found in root, and use the downloaded version
+            except:
+                images = convert_from_path(self.NEW_FILE_NAME+'.pdf', poppler_path=r'poppler-0.68.0\bin') #C:\Users\zacha\OneDrive\Desktop\poppler-0.68.0_x86\   #Change to work with computer using: https://stackoverflow.com/questions/18381713/how-to-install-poppler-on-windows #Don't need to specify location for linux
+                
+        # Catch an exception if poppler still did not work
         except:
-            images = convert_from_path(self.NEW_FILE_NAME+'.pdf', poppler_path=r'poppler-0.68.0\bin') #C:\Users\zacha\OneDrive\Desktop\poppler-0.68.0_x86\   #Change to work with computer using: https://stackoverflow.com/questions/18381713/how-to-install-poppler-on-windows #Don't need to specify location for linux
-        
-        # Save the image
-        finally:
-            for i in images:
-                i.save(self.NEW_FILE_NAME+'.jpg', 'JPEG')
+            raise Exception('Poppler is not installed')
 
+        # If the pdf was successfully converted, then save the image to file
+        else:
+            images[0].save(self.NEW_FILE_NAME+'.jpg', 'JPEG')
 
     # Email the verification code to the client
     def sendEmail(self):
 
-        """
+        
 
         # Opening the image file to send
         with open(self.NEW_FILE_NAME+'.jpg', 'rb') as f:
             img_data = f.read()
-        """
+        
         msg = MIMEMultipart()  # Setting up an email message
         
 
@@ -117,6 +129,7 @@ class verification:
         if self.password == None:
             self.password = input('Please enter your password\n')
         """
+        
 
 
         # Subject, from, and to (information for email)
@@ -127,8 +140,8 @@ class verification:
         # Attaching the text and image to the email
         text = MIMEText(self.MESSAGE)
         msg.attach(text)
-        #image = MIMEImage(img_data, name=os.path.basename(self.NEW_FILE_NAME+'.jpg'))
-        #msg.attach(image)
+        image = MIMEImage(img_data, name=os.path.basename(self.NEW_FILE_NAME+'.jpg'))
+        msg.attach(image)
 
         # Logging into an outlook server (this is only for the sender. Meaning the sender has to be mail.com. You can send an email to any domain)
         with smtplib.SMTP('smtp.gmail.com', 587) as server:
@@ -139,6 +152,6 @@ class verification:
 
 
     def sendVerificationCode(self):
-        #self.EditTemplate()
-        #self.ConvertDoc()
+        self.EditTemplate()
+        self.ConvertDoc()
         self.sendEmail()
