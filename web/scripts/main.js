@@ -57,7 +57,11 @@ function thirdAnimation() {
 eel.expose(numberAnimate)
 function numberAnimate(num) {
     document.getElementById('locker-number').className = 'locker-number-show'
-    document.getElementById('locker-number').innerHTML = num
+    if (num != "N/A") { document.getElementById('locker-number').innerHTML = num }
+    else { 
+        document.getElementById('locker-number').innerHTML = "<font size='200'> N/A </font>"
+        document.getElementById('title').innerHTML = "Charger Not Found!"
+    }
 }
 
 // Animation from email screen to verification

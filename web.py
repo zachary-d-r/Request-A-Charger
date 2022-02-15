@@ -129,13 +129,17 @@ def getLockerNumber():
     # If it is a new student, then find a locker with their requested charger
     if studentDatabase.check_existence(student.email) == False:
         print('Find locker for new student')
+        lockerIndex = lockerDatabase.find_locker(student.charger, 0)
 
-        studentDatabase.add_student(student.email, student.charger, studentDatabase.get_timestamp())  # Add the student to the database
-        print(f'Added {student.email}')
-        print('\n\n')
-        studentDatabase.print_database()
-        print('\n')
-        return lockerDatabase.find_locker(student.charger, 0)
+        if lockerIndex != 0: 
+            studentDatabase.add_student(student.email, student.charger, studentDatabase.get_timestamp())  # Add the student to the database
+            print(f'Added {student.email}')
+            print('\n\n')
+            studentDatabase.print_database()
+            print('\n')
+        else: lockerIndex = 'N/A'
+
+        return lockerIndex
     
     # Else if it is a returning student, then find an open locker to return their requested charger
     else:
