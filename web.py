@@ -139,7 +139,8 @@ def getLockerNumber():
         return lockerDatabase.find_locker(student.charger)
     else:
         print('Find empty locker')
-        return lockerDatabase.find_locker(0)
+        student.charger = studentDatabase.get_student(student.email)["Charger Type"]
+        return lockerDatabase.find_locker(student.charger, True)
         
 
 eel.start('index.html', mode='chrome', cmdline_args=['--kiosk'])  # Start the app

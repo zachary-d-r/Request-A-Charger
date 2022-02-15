@@ -317,28 +317,41 @@ class LockerDatabase(Database):
         Edit the charger type of a locker
         (0: no charger, 1: lightning, 2: magsafe, 3: surface, 4: usb-c)
         """
+
         # Edit the locker data
-        self.dataFrame.loc[lockerNumber, 'Charger Type'] = chargerType
+        print('Charger Arg:', chargerType)
+        print('Before:', self.dataFrame.loc[(lockerNumber), 'Charger Type'])
+        self.dataFrame.loc[(lockerNumber), 'Charger Type'] = chargerType
+        print('After:', self.dataFrame.loc[(lockerNumber), 'Charger Type'])
+        #self.dataFrame[lockerNumber]['Charger Type'] = chargerType
         
         # Pickle the dataframe to its file
         self.data_pickle('w')
 
     # Define the find_locker method to find a locker with the requested charger (or lack there of)
-    def find_locker(self, chargerType:int):
+    def find_locker(self, chargerType:int, returnC:bool=False):
         """
         Find a charger in the locker database
         (0: no charger, 1: lightning, 2: magsafe, 3: surface, 4: usb-c)
         Return 0 if there is no charger available of that type
         """
+
+        print(f"\n\n{self.dataFrame}\n\n")
+        
+        if returnC: find = 0
+        else: find = chargerType
         
         # Iterate through the rows to find a locker with the requested charger
         for index, row in self.dataFrame.iterrows():
-            print('1.index:', index)
-            print(f'2. {chargerType}')
-            print('3.', row['Charger Type'])
-            if row['Charger Type'] == chargerType:
+
+            if find != chargerType and row['Charger Type'] == find:
                 self.edit_locker(index, chargerType)
                 return index
+            elif find == chargerType and row['Charger Type'] == find:
+                self.edit_locker(index, 0)
+                return index
+
+        print(f"\n\n{self.dataFrame}\n\n")
         
         # Else, return 0 if no chargers of that type were found
         return 0
