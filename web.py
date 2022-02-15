@@ -126,21 +126,22 @@ def stall():
     eel.numberAnimate(str(lockerNumber))
 
 def getLockerNumber():
+    # If it is a new student, then find a locker with their requested charger
     if studentDatabase.check_existence(student.email) == False:
         print('Find locker for new student')
-        print('ABC:', student.charger)
 
         studentDatabase.add_student(student.email, student.charger, studentDatabase.get_timestamp())  # Add the student to the database
         print(f'Added {student.email}')
         print('\n\n')
         studentDatabase.print_database()
         print('\n')
-        
-        return lockerDatabase.find_locker(student.charger)
+        return lockerDatabase.find_locker(student.charger, 0)
+    
+    # Else if it is a returning student, then find an open locker to return their requested charger
     else:
         print('Find empty locker')
         student.charger = studentDatabase.get_student(student.email)["Charger Type"]
-        return lockerDatabase.find_locker(student.charger, True)
+        return lockerDatabase.find_locker(0, student.charger)
         
 
 eel.start('index.html', mode='chrome', cmdline_args=['--kiosk'])  # Start the app

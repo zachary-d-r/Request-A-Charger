@@ -328,30 +328,34 @@ class LockerDatabase(Database):
         # Pickle the dataframe to its file
         self.data_pickle('w')
 
-    # Define the find_locker method to find a locker with the requested charger (or lack there of)
-    def find_locker(self, chargerType:int, returnC:bool=False):
+    # Define the find__locker method to find a locker with the requested charger and change its charger type
+    def find_locker(self, find:int, replace:int):
         """
-        Find a charger in the locker database
+        Find a charger in the locker database and change its charger type
         (0: no charger, 1: lightning, 2: magsafe, 3: surface, 4: usb-c)
         Return 0 if there is no charger available of that type
         """
 
+        """
+        New: look = charger type, replace = 0
+        Returning: look = 0, replace = charger type
+        """
+
         print(f"\n\n{self.dataFrame}\n\n")
-        
-        if returnC: find = 0
-        else: find = chargerType
         
         # Iterate through the rows to find a locker with the requested charger
         for index, row in self.dataFrame.iterrows():
-
+            if row['Charger Type'] == find:
+                self.edit_locker(index, replace)
+                return index
+            """
             if find != chargerType and row['Charger Type'] == find:
                 self.edit_locker(index, chargerType)
                 return index
             elif find == chargerType and row['Charger Type'] == find:
                 self.edit_locker(index, 0)
                 return index
-
-        print(f"\n\n{self.dataFrame}\n\n")
+            """
         
         # Else, return 0 if no chargers of that type were found
         return 0
