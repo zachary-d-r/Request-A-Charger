@@ -152,6 +152,6 @@ class verification:
 
 
     def sendVerificationCode(self):
-        self.EditTemplate()
-        self.ConvertDoc()
+        #Tempself.EditTemplate()
+        #Temp self.ConvertDoc()
         self.sendEmail()

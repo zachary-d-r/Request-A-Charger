@@ -59,6 +59,7 @@ function numberAnimate(num) {
     document.getElementById('locker-number').className = 'locker-number-show'
     if (num != "N/A") { document.getElementById('locker-number').innerHTML = num }
     else { 
+        document.getElementById('locker-number').className = 'locker-number-show-N-A'
         document.getElementById('locker-number').innerHTML = "<font size='200'> N/A </font>"
         document.getElementById('title').innerHTML = "Charger Not Found!"
     }
