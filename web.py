@@ -123,7 +123,7 @@ def openLocker():
 def stall():
     time.sleep(2)
     lockerNumber = getLockerNumber()
-    eel.numberAnimate(str(3))
+    eel.numberAnimate(str(lockerNumber))
 
 def getLockerNumber():
     # If it is a new student, then find a locker with their requested charger

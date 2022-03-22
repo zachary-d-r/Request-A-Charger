@@ -11,11 +11,13 @@
               -13px -13px 20px #ffffff;
 
 
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
 
 }
 
@@ -38,6 +40,9 @@
   margin-right: -50%;
   transform: translate(-50%, -50%);
   
+  display: flex;
+  flex-direction: column;
+
 }
 
 .login-div-animate-2 {
@@ -59,6 +64,9 @@
   margin-right: -50%;
   transform: translate(-50%, -50%);
   
+  display: flex;
+  flex-direction: column;
+
 }
 
 .login-div-animate-3 {
@@ -79,7 +87,10 @@
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%);
-  
+
+  display: flex;
+  flex-direction: column;
+
 }
 
 @keyframes kf-login-div {
@@ -202,7 +213,12 @@
 
 .fields {
   padding: 75px 5px 5px 5px;
+  
+  position:absolute;
   width: 100%;
+
+  display: flex;
+  flex-direction: column;
 }
 .fields input {
   border: none;
@@ -218,12 +234,17 @@
   animation: kf-last-email 1s;
 
   margin-bottom: 30px;
-  border-radius: 25px;
+  border-radius: 25px;  
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+  
   float: left;
   box-shadow: inset 8px 8px 8px #cbced1,
-              inset -8px -8px 8px #ffffff;;
+              inset 0px -8px 8px #ffffff;;
 
   width: 55%;
+
+
 }
 #email-input::placeholder {
   text-transform: none;
@@ -242,15 +263,20 @@
   font-size: 16px;
   font-family: 'Noto Sans', sans-serif;
   color: gray;
-  padding: 20px 10px 20px 5px;
+  /* padding: 20px 10px 20px 5px; */
+  
+  margin:0 0 0 -7px;
 
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   border-radius: 25px;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+
   float: right;
-  box-shadow: inset 8px 8px 8px #cbced1,
+  box-shadow: inset 0px 8px 8px #cbced1,
               inset -8px -8px 8px #ffffff;
 
-  width: 40%;
+  /* width: 40%; */
 }
 
 
@@ -297,17 +323,18 @@
 
 .number-box {
   visibility: hidden;
-
-  width: 0%;
-  height: 0%;
+  animation: kf-number-box 2s;
   margin-bottom: 30px;
   border-radius: 25px;
   float: left;
   box-shadow: inset 8px 8px 8px #cbced1,
               inset -8px -8px 8px #ffffff;;
   
-  position: relative;
-  top: -90px;
+  /* width: 100%; */
+  height: 250px;
+  /* position: relative;
+  top: -90px; */
+  
   content: 'Verification';
   
   /* display: flex;
@@ -324,10 +351,10 @@
   box-shadow: inset 8px 8px 8px #cbced1,
               inset -8px -8px 8px #ffffff;;
   
-  width: 100%;
+  /* width: 100%; */
   height: 400px;
-  position: relative;
-  top: -90px;
+  /* position: relative;
+  top: -90px; */
   content: 'Verification';
 }
 .number-box-3 {
@@ -340,10 +367,10 @@
   box-shadow: inset 8px 8px 8px #cbced1,
               inset -8px -8px 8px #ffffff;;
   
-  width: 100%;
+  /* width: 100%; */
   height: 250px;
-  position: relative;
-  top: -90px;
+  /* position: relative;
+  top: -90px; */
   content: 'Verification';
 
   /* display: flex;
@@ -365,6 +392,12 @@
   100% {height: 400px; position: relative; top: -90px;}
 }
 @keyframes kf-number-box-3 {
+  0% {height: 400px; position: relative; top: -90px;}
+  50% {height: 400px; position: relative; top: -90px;}
+  100% {height: 250px; position: relative; top: -90px;}
+}
+
+@keyframes kf-number-box {
   0% {height: 400px; position: relative; top: -90px;}
   50% {height: 400px; position: relative; top: -90px;}
   100% {height: 250px; position: relative; top: -90px;}
@@ -479,8 +512,8 @@
               -3px -3px 8px #ffffff;
   transition: 0.5s;
 
-  position: relative;
-  top: 20px;
+  /* position: relative;
+  top: 20px; */
 }
 .signin-button:hover {
   background:#2fdbb6;
@@ -508,10 +541,10 @@
               -3px -3px 8px #ffffff;
   
   transition: 0.5s;
-  position: relative;
-  top: -100px;
+  /* position: relative;
+  top: -100px; */
   width: 85%;
-  right: -40px;
+  /* right: -40px; */
 }
 .signin-button-animate-2 {
 
@@ -534,9 +567,9 @@
   
   transition: 0.5s;
   position: relative;
-  top: -100px;
+  /* top: -100px; */
   width: 95%;
-  right: -10px;
+  /* right: -10px; */
   opacity: 0;
 }
 .signin-button-animate-3 {
@@ -559,27 +592,30 @@
               -3px -3px 8px #ffffff;
   
   transition: 0.5s;
-  position: relative;
-  top: -100px;
+  /* position: relative;
+  top: -100px; */
   width: 95%;
-  right: -10px;
+  /* right: -10px; */
 }
 
 
 @keyframes kf-signin-button {
-  0% {position: relative; top: 20px; width: 100%; right: 0px;}
+  /* 0% {position: relative; top: 20px; width: 100%; right: 0px;}
   50% {position: relative; top: 20px; width: 100%; right: 0px;}
-  100% {position: relative; top: -100px; width: 85%; right: -40px;}
+  100% {position: relative; top: -100px; width: 85%; right: -40px;} */
+  0% {width: 100%}
+  50% {width: 100%}
+  100% {width: 85%}
 }
 @keyframes kf-signin-button-2 {
-  0% {position: relative; top: -100px; width: 85%; right: -40px; opacity: 1;}
-  50% {position: relative; top: -100px; width: 85%; right: -40px; opacity: 0;}
-  100% {position: relative; top: -100px; width: 95%; right: -10px; opacity: 0;}
+  0% {width: 85%; opacity: 1;}
+  50% {width: 85%; opacity: 0;}
+  100% {width: 95%; opacity: 0;}
 }
 @keyframes kf-signin-button-3 {
-  0% {position: relative; top: -100px; width: 95%; right: -10px; opacity: 0;}
-  50% {position: relative; top: -100px; width: 95%; right: -10px; opacity: 0;}
-  100% {position: relative; top: -100px; width: 95%; right: -10px; opacity: 1;}
+  0% {width: 95%; opacity: 0;}
+  50% {width: 95%; opacity: 0;}
+  100% {width: 95%; opacity: 1;}
 }
 
 .locker-number-hidden {
@@ -614,9 +650,15 @@
   
   transform: translate(-50%,-50%); */
 
-  position: relative;
+  /* position: relative;
   top: -75px;
-  left: -250px;
+  left: -250px; */
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* margin: -35px 0 0 -35px; */
 
   /* position: relative;
   top: -160px;
